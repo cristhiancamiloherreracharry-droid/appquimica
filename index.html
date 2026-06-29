@@ -13,8 +13,8 @@
     --green: #639922; --green-dark: #3B6D11; --green-light: #EAF3DE;
     --blue: #378ADD; --blue-dark: #185FA5; --blue-light: #E6F1FB;
     --purple: #7F77DD; --purple-dark: #534AB7; --purple-light: #EEEDFE;
-    --gray: #888780; --gray-dark: #2C2C2A; --gray-light: #F1EFE8;
-    --gold: #FFD700; --bg: #1a1208; --surface: #2a1f0a; --surface2: #3a2d10;
+    --gray: #888780; --gold: #FFD700;
+    --bg: #1a1208; --surface: #2a1f0a; --surface2: #3a2d10;
     --text: #f5e6c8; --text2: #c4a96e; --border: #5a4520;
     --font: 'Georgia', serif; --radius: 12px;
   }
@@ -26,18 +26,15 @@
   .hdr .sub { font-size: 12px; color: var(--text2); letter-spacing: 3px; text-transform: uppercase; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 8px 0; }
   .card.glow-amber { border-color: var(--amber); box-shadow: 0 0 12px #ef9f2733; }
-  .card.glow-green { border-color: var(--green); box-shadow: 0 0 12px #63992233; }
-  .card.glow-red { border-color: var(--red); box-shadow: 0 0 12px #e24b4a33; }
+  .card.glow-green  { border-color: var(--green);  box-shadow: 0 0 12px #63992233; }
+  .card.glow-red    { border-color: var(--red);    box-shadow: 0 0 12px #e24b4a33; }
   .card.glow-purple { border-color: var(--purple); box-shadow: 0 0 12px #7f77dd33; }
   .btn { display: block; width: 100%; padding: 14px 20px; border-radius: var(--radius); border: none; font-family: var(--font); font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.15s; text-align: center; margin: 6px 0; }
   .btn:active { transform: scale(0.97); }
-  .btn-amber { background: var(--amber); color: #1a0f00; }
-  .btn-amber:hover { background: var(--amber-dark); }
-  .btn-red { background: var(--red); color: #fff; }
-  .btn-green { background: var(--green); color: #fff; }
-  .btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+  .btn-amber  { background: var(--amber);  color: #1a0f00; }
+  .btn-green  { background: var(--green);  color: #fff; }
+  .btn-ghost  { background: transparent; color: var(--text2); border: 1px solid var(--border); }
   .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
-  .btn-purple { background: var(--purple); color: #fff; }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
   .stat-row { display: flex; gap: 8px; margin: 8px 0; }
   .stat-box { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: center; }
@@ -53,7 +50,7 @@
   .level-card.active-level { border-color: var(--amber); box-shadow: 0 0 12px #ef9f2733; }
   .level-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
   .level-info .title { font-size: 15px; font-weight: bold; color: var(--text); }
-  .level-info .desc { font-size: 12px; color: var(--text2); margin-top: 3px; line-height: 1.4; }
+  .level-info .desc  { font-size: 12px; color: var(--text2); margin-top: 3px; line-height: 1.4; }
   .level-badge { margin-left: auto; font-size: 18px; }
   .inp { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; color: var(--text); font-family: var(--font); font-size: 15px; outline: none; transition: border-color 0.2s; }
   .inp:focus { border-color: var(--amber); }
@@ -66,29 +63,29 @@
   .coeff-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: all 0.1s; flex-shrink: 0; }
   .coeff-btn:active { transform: scale(0.9); background: var(--amber); color: #1a0f00; }
   .coeff-val { font-size: 22px; font-weight: bold; color: var(--gold); min-width: 28px; text-align: center; }
-  .scale-container { display: flex; justify-content: center; gap: 20px; margin: 12px 0; }
-  .scale-side { flex: 1; background: var(--surface2); border-radius: 8px; padding: 10px; max-width: 160px; }
+  .scale-container { display: flex; gap: 12px; margin: 12px 0; }
+  .scale-side { flex: 1; background: var(--surface2); border-radius: 8px; padding: 10px; }
   .scale-side h4 { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; text-align: center; }
   .atom-count { display: flex; flex-wrap: wrap; gap: 4px; }
   .atom-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; font-size: 13px; color: var(--text); }
-  .atom-pill.match { border-color: var(--green); color: var(--green); }
-  .atom-pill.mismatch { border-color: var(--red); color: var(--red); }
+  .atom-pill.match    { border-color: var(--green); color: var(--green); }
+  .atom-pill.mismatch { border-color: var(--red);   color: var(--red);   }
   .scale-status { text-align: center; font-size: 13px; font-weight: bold; margin-top: 8px; padding: 8px; border-radius: 8px; }
-  .scale-status.balanced { background: var(--green-light); color: var(--green-dark); }
-  .scale-status.unbalanced { background: var(--red-light); color: var(--red-dark); }
+  .scale-status.balanced   { background: var(--green-light); color: var(--green-dark); }
+  .scale-status.unbalanced { background: var(--red-light);   color: var(--red-dark);   }
   .monster-box { background: var(--surface2); border: 1px solid var(--red); border-radius: var(--radius); padding: 16px; text-align: center; margin: 8px 0; }
-  .monster-art { font-size: 64px; margin: 8px 0; }
+  .monster-art  { font-size: 64px; margin: 8px 0; }
   .monster-name { font-size: 18px; font-weight: bold; color: var(--red); }
   .monster-hp-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
   .attack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
   .attack-btn { padding: 12px 8px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-family: var(--font); font-size: 13px; cursor: pointer; transition: all 0.15s; text-align: center; }
   .attack-btn:active { transform: scale(0.95); }
-  .attack-btn.correct { border-color: var(--green); background: #1a3010; }
-  .attack-btn.wrong { border-color: var(--red); background: #300808; }
+  .attack-btn.correct  { border-color: var(--green); background: #1a3010; }
+  .attack-btn.wrong    { border-color: var(--red);   background: #300808; }
   .attack-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .combat-log { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 13px; color: var(--text2); min-height: 60px; line-height: 1.6; max-height: 120px; overflow-y: auto; }
-  .weapon-badge { background: var(--surface2); border-radius: 8px; padding: 10px 14px; text-align: center; margin: 6px 0; }
-  .weapon-badge.perfect { border: 2px solid var(--gold); color: var(--gold); }
+  .combat-log { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 13px; color: var(--text2); min-height: 60px; line-height: 1.6; }
+  .weapon-badge { border-radius: 8px; padding: 10px 14px; text-align: center; margin: 6px 0; }
+  .weapon-badge.perfect  { border: 2px solid var(--gold);  color: var(--gold); }
   .weapon-badge.defective { border: 1px solid var(--gray); color: var(--gray); }
   .maestro-box { background: var(--surface); border: 2px solid var(--purple); border-radius: var(--radius); padding: 16px; margin: 8px 0; }
   .maestro-avatar { font-size: 40px; text-align: center; margin-bottom: 8px; }
@@ -99,13 +96,11 @@
   .loading-box { text-align: center; padding: 24px; color: var(--text2); }
   .section-title { font-size: 12px; color: var(--text2); text-transform: uppercase; letter-spacing: 2px; margin: 16px 0 8px; }
   .divider { height: 1px; background: var(--border); margin: 12px 0; }
-  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-  .badge-amber { background: var(--amber-light); color: var(--amber-dark); }
-  .badge-green { background: var(--green-light); color: var(--green-dark); }
-  .msg { padding: 12px; border-radius: 8px; font-size: 14px; margin: 6px 0; }
-  .msg-error { background: var(--red-light); color: var(--red-dark); border: 1px solid var(--red); }
+  .badge-amber { background: var(--amber-light); color: var(--amber-dark); display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:bold; }
+  .msg { padding: 12px; border-radius: 8px; font-size: 14px; margin: 6px 0; line-height:1.5; }
+  .msg-error   { background: var(--red-light);   color: var(--red-dark);   border: 1px solid var(--red);   }
   .msg-success { background: var(--green-light); color: var(--green-dark); border: 1px solid var(--green); }
-  .msg-info { background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue); }
+  .msg-info    { background: var(--blue-light);  color: var(--blue-dark);  border: 1px solid var(--blue);  }
   .attempts-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--border); margin: 0 2px; vertical-align: middle; }
   .attempts-dot.used { background: var(--red); }
   .scroll-content { flex: 1; overflow-y: auto; padding-bottom: 20px; }
@@ -113,9 +108,11 @@
   .classify-btn { padding: 14px 8px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-family: var(--font); font-size: 13px; cursor: pointer; transition: all 0.15s; text-align: center; font-weight: bold; }
   .classify-btn:active { transform: scale(0.95); }
   .classify-btn.selected-correct { border-color: var(--green); background: #1a3010; color: var(--green); }
-  .classify-btn.selected-wrong { border-color: var(--red); background: #300808; color: var(--red); }
+  .classify-btn.selected-wrong   { border-color: var(--red);   background: #300808; color: var(--red);   }
   .flame { display: inline-block; animation: flicker 1.5s ease-in-out infinite alternate; }
-  @keyframes flicker { from { opacity: 1; } to { opacity: 0.7; transform: scale(0.97); } }
+  @keyframes flicker { from { opacity:1; } to { opacity:0.7; transform:scale(0.97); } }
+  /* debug box */
+  .debug-box { background:#111; border:1px solid #555; border-radius:8px; padding:10px; font-size:11px; color:#aaa; font-family:monospace; white-space:pre-wrap; word-break:break-all; max-height:180px; overflow-y:auto; margin-top:8px; }
 </style>
 </head>
 <body>
@@ -128,23 +125,16 @@
   </div>
   <div class="scroll-content">
     <div class="card glow-amber" style="margin-top:16px;">
-      <div style="font-size:32px; text-align:center; margin-bottom:10px;">🏰</div>
-      <div style="font-size:18px; font-weight:bold; color:var(--amber); text-align:center; margin-bottom:6px;">Ajustes del Gremio</div>
-      <div style="font-size:13px; color:var(--text2); line-height:1.6; margin-bottom:14px; text-align:center;">Ingresa tu clave de Gemini para activar al Maestro Herrero.</div>
+      <div style="font-size:32px;text-align:center;margin-bottom:10px;">🏰</div>
+      <div style="font-size:18px;font-weight:bold;color:var(--amber);text-align:center;margin-bottom:6px;">Ajustes del Gremio</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px;text-align:center;">Ingresa tu clave de Gemini para activar al Maestro Herrero.</div>
       <div class="section-title">Llave de la API (Gemini)</div>
       <input id="apiKeyInput" class="inp" type="password" placeholder="Pega tu clave aquí (AIza... o AQ...)" autocomplete="off">
-      <div style="font-size:12px; color:var(--text2); margin-top:6px; line-height:1.6;">
-        Obtén tu clave gratis en: <strong style="color:var(--amber);">aistudio.google.com/apikey</strong><br>
-        Acepta claves que empiecen con <strong style="color:var(--gold);">AIza</strong> o <strong style="color:var(--gold);">AQ</strong> o cualquier formato válido.
+      <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.6;">
+        Obtén tu clave gratis en: <strong style="color:var(--amber);">aistudio.google.com/apikey</strong>
       </div>
       <button class="btn btn-amber" style="margin-top:14px;" onclick="saveApiKey()">⚔ Entrar al Gremio</button>
       <div id="setup-error" class="msg msg-error" style="display:none;"></div>
-    </div>
-    <div class="card" style="margin-top:8px;">
-      <div style="font-size:13px; color:var(--text2); line-height:1.6;">
-        <strong style="color:var(--amber);">¿Qué es AlquiQuest?</strong><br>
-        Una aventura RPG donde aprender química es forjar armas mágicas. Cada ecuación que balanceas crea un arma. Cada arma te ayuda a vencer monstruos. ¡Aprende jugando!
-      </div>
     </div>
   </div>
 </div>
@@ -170,20 +160,20 @@
 
 <!-- FORGE -->
 <div id="screen-forge" class="screen">
-  <div style="display:flex; align-items:center; gap:10px; padding:12px 0 6px;">
-    <button class="btn btn-ghost" style="width:auto; padding:8px 12px;" onclick="showMap()">← Mapa</button>
-    <div style="flex:1; text-align:center;"><span id="forge-level-name" style="font-size:14px; color:var(--amber); font-weight:bold;"></span></div>
-    <div style="font-size:13px; color:var(--text2);" id="forge-attempts-display"></div>
+  <div style="display:flex;align-items:center;gap:10px;padding:12px 0 6px;">
+    <button class="btn btn-ghost" style="width:auto;padding:8px 12px;" onclick="showMap()">← Mapa</button>
+    <div style="flex:1;text-align:center;"><span id="forge-level-name" style="font-size:14px;color:var(--amber);font-weight:bold;"></span></div>
+    <div style="font-size:13px;color:var(--text2);" id="forge-attempts-display"></div>
   </div>
   <div class="scroll-content" id="forge-content">
-    <div class="loading-box"><div class="spinner"></div><div style="margin-top:12px; font-size:14px;">Forjando tu reto...</div></div>
+    <div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;font-size:14px;">Forjando tu reto...</div></div>
   </div>
 </div>
 
 <!-- COMBAT -->
 <div id="screen-combat" class="screen">
-  <div style="display:flex; align-items:center; gap:10px; padding:12px 0 6px;">
-    <div style="flex:1; text-align:center; font-size:14px; color:var(--red); font-weight:bold;">⚔ ¡FASE DE COMBATE!</div>
+  <div style="display:flex;align-items:center;gap:10px;padding:12px 0 6px;">
+    <div style="flex:1;text-align:center;font-size:14px;color:var(--red);font-weight:bold;">⚔ ¡FASE DE COMBATE!</div>
   </div>
   <div class="scroll-content" id="combat-content"></div>
 </div>
@@ -198,55 +188,58 @@
 </div>
 
 <script>
+// ══════════════ NIVELES ══════════════
 const LEVELS = [
-  { id:0, name:"Conceptos Básicos", icon:"📖", color:"var(--blue)", desc:"Fórmulas, elementos, subíndices y coeficientes", xpReward:100, type:"reading" },
-  { id:1, name:"Planos de Forja", icon:"🗺️", color:"var(--amber)", desc:"Reconocer y clasificar tipos de reacciones", xpReward:150, type:"classify" },
-  { id:2, name:"La Fragua Básica", icon:"⚖️", color:"var(--green)", desc:"Balanceo de ecuaciones por tanteo", xpReward:250, type:"balance" },
-  { id:3, name:"Magia Elemental", icon:"⚡", color:"var(--purple)", desc:"Conceptos básicos de Redox", xpReward:350, type:"redox" }
+  { id:0, name:"Conceptos Básicos",   icon:"📖", color:"var(--blue)",   desc:"Fórmulas, elementos, subíndices y coeficientes", xpReward:100, type:"reading"  },
+  { id:1, name:"Planos de Forja",     icon:"🗺️", color:"var(--amber)",  desc:"Reconocer y clasificar tipos de reacciones",     xpReward:150, type:"classify" },
+  { id:2, name:"La Fragua Básica",    icon:"⚖️", color:"var(--green)",  desc:"Balanceo de ecuaciones por tanteo",               xpReward:250, type:"balance"  },
+  { id:3, name:"Magia Elemental",     icon:"⚡", color:"var(--purple)", desc:"Conceptos básicos de Redox",                     xpReward:350, type:"redox"    }
 ];
 
+// ══════════════ ESTADO ══════════════
 let state = {
-  apiKey: localStorage.getItem('alquiquest_apikey') || '',
-  xp: parseInt(localStorage.getItem('alquiquest_xp')||'0'),
-  weapons: parseInt(localStorage.getItem('alquiquest_weapons')||'0'),
-  streak: parseInt(localStorage.getItem('alquiquest_streak')||'0'),
-  completedLevels: JSON.parse(localStorage.getItem('alquiquest_completed')||'[]'),
-  currentLevel: null, currentChallenge: null,
-  forgeAttempts: 0, forgePerfect: false,
-  coefficients: {}, combatData: null
+  apiKey:         localStorage.getItem('alquiquest_apikey') || '',
+  xp:             parseInt(localStorage.getItem('alquiquest_xp')        || '0'),
+  weapons:        parseInt(localStorage.getItem('alquiquest_weapons')   || '0'),
+  streak:         parseInt(localStorage.getItem('alquiquest_streak')    || '0'),
+  completedLevels:JSON.parse(localStorage.getItem('alquiquest_completed') || '[]'),
+  currentLevel:   null, currentChallenge: null,
+  forgeAttempts:  0,    forgePerfect: false,
+  coefficients:   {},   combatData: null
 };
 
 function saveState() {
-  localStorage.setItem('alquiquest_apikey', state.apiKey);
-  localStorage.setItem('alquiquest_xp', state.xp);
-  localStorage.setItem('alquiquest_weapons', state.weapons);
-  localStorage.setItem('alquiquest_streak', state.streak);
+  localStorage.setItem('alquiquest_apikey',    state.apiKey);
+  localStorage.setItem('alquiquest_xp',        state.xp);
+  localStorage.setItem('alquiquest_weapons',   state.weapons);
+  localStorage.setItem('alquiquest_streak',    state.streak);
   localStorage.setItem('alquiquest_completed', JSON.stringify(state.completedLevels));
 }
 
+// ══════════════ NAVEGACIÓN ══════════════
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-'+id).classList.add('active');
 }
 function showSetup() { showScreen('setup'); }
-function showMap() { renderMap(); showScreen('map'); }
+function showMap()   { renderMap(); showScreen('map'); }
 function showForge(levelId) {
-  state.currentLevel = levelId;
+  state.currentLevel  = levelId;
   state.forgeAttempts = 0;
-  state.forgePerfect = false;
+  state.forgePerfect  = false;
   document.getElementById('forge-level-name').textContent = '🔥 ' + LEVELS[levelId].name;
   renderForgeAttempts();
   showScreen('forge');
   loadForgeChallenge(levelId);
 }
 
-// ── API KEY: acepta cualquier clave de 10+ caracteres ──
+// ══════════════ API KEY ══════════════
 function saveApiKey() {
   const key = document.getElementById('apiKeyInput').value.trim();
   const errEl = document.getElementById('setup-error');
   if (key.length < 10) {
     errEl.style.display = 'block';
-    errEl.textContent = 'La clave parece muy corta. Pega la clave completa que generaste en AI Studio.';
+    errEl.textContent = 'La clave parece muy corta. Pega la clave completa.';
     return;
   }
   state.apiKey = key;
@@ -255,55 +248,141 @@ function saveApiKey() {
   showMap();
 }
 
-// ── GEMINI 2.5 FLASH ──
+// ══════════════ GEMINI — modelos a probar en orden ══════════════
+const GEMINI_MODELS = [
+  'gemini-2.5-flash-preview-05-20',
+  'gemini-2.5-flash',
+  'gemini-2.0-flash',
+  'gemini-1.5-flash'
+];
+
 async function callGemini(prompt) {
   if (!state.apiKey) { showSetup(); throw new Error('Sin API key'); }
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${state.apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 1200 }
-      })
+  let lastError = '';
+  for (const model of GEMINI_MODELS) {
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${state.apiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.5, maxOutputTokens: 1500 }
+          })
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        lastError = data.error?.message || `HTTP ${res.status}`;
+        // si el modelo no existe, probar el siguiente
+        if (res.status === 404 || res.status === 400) continue;
+        throw new Error(lastError);
+      }
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      if (!text) { lastError = 'Respuesta vacía'; continue; }
+      return text;
+    } catch(e) {
+      lastError = e.message;
+      if (e.message.includes('API key') || e.message.includes('PERMISSION')) throw e;
     }
-  );
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.error?.message || `Error HTTP ${res.status}`);
   }
-  const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  throw new Error('No se pudo conectar con Gemini. ' + lastError);
 }
 
+// ══════════════ PARSER ROBUSTO ══════════════
 function parseJSON(text) {
-  const clean = text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
-  const start = clean.indexOf('{');
-  const end = clean.lastIndexOf('}');
-  if (start < 0 || end < 0) throw new Error('No se pudo leer la respuesta de la IA. Intenta de nuevo.');
-  return JSON.parse(clean.slice(start, end+1));
+  // 1. limpiar bloques markdown
+  let clean = text
+    .replace(/```json\s*/gi, '')
+    .replace(/```\s*/g, '')
+    .trim();
+
+  // 2. intentar parseo directo
+  try { return JSON.parse(clean); } catch(_) {}
+
+  // 3. extraer primer objeto JSON del texto (busca { ... } más externo)
+  let depth = 0, start = -1, end = -1;
+  for (let i = 0; i < clean.length; i++) {
+    if (clean[i] === '{') { if (depth === 0) start = i; depth++; }
+    else if (clean[i] === '}') { depth--; if (depth === 0) { end = i; break; } }
+  }
+  if (start >= 0 && end > start) {
+    const candidate = clean.slice(start, end + 1);
+    try { return JSON.parse(candidate); } catch(_) {}
+
+    // 4. reparar JSON roto: eliminar trailing commas, arreglar comillas
+    const repaired = candidate
+      .replace(/,\s*([}\]])/g, '$1')          // trailing commas
+      .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?\s*:/g, '"$2":') // claves sin comillas
+      .replace(/:\s*'([^']*)'/g, ': "$1"');    // valores con comilla simple
+    try { return JSON.parse(repaired); } catch(_) {}
+  }
+
+  // 5. extraer campos manualmente si todo falla
+  console.warn('JSON complejo, extrayendo manualmente. Texto:', text);
+  throw new Error('La IA respondió en un formato inesperado. Toca "Reintentar".');
 }
 
-// ── MAP ──
+// ══════════════ PROMPTS con instrucción EXTRA de formato ══════════════
+const JSON_INSTRUCTION = `
+INSTRUCCIÓN CRÍTICA: Responde ÚNICAMENTE con el objeto JSON. 
+Sin texto antes ni después. Sin bloques de código markdown. Sin explicaciones.
+Solo el JSON puro empezando con { y terminando con }.`;
+
+function buildPrompt(levelType) {
+  if (levelType === 'reading') return `${JSON_INSTRUCTION}
+Eres maestro de química para 8vo grado. Devuelve este JSON exacto:
+{"type":"reading","title":"Contando átomos","explanation":"En química, las fórmulas nos dicen qué átomos hay. El subíndice (número pequeño abajo) indica cuántos átomos de ese elemento hay en una molécula. El coeficiente (número grande delante) indica cuántas moléculas hay. Por ejemplo en 3H2O: hay 3 moléculas de agua, cada una con 2 hidrógenos y 1 oxígeno.","question":"¿Cuántos átomos de hidrógeno hay en total en 3H2O?","formula":"3H2O","answer":6,"hint":"Multiplica el coeficiente 3 por el subíndice 2"}`;
+
+  if (levelType === 'classify') return `${JSON_INSTRUCTION}
+Genera una reacción química simple para clasificar. Devuelve este JSON:
+{"type":"classify","equation":"2H2 + O2 → 2H2O","reactionType":"Síntesis","explanation":"Es síntesis porque dos sustancias se unen para formar una sola. Dos elementos se combinan y forman agua.","options":["Síntesis","Descomposición","Sustitución simple","Combustión"]}`;
+
+  if (levelType === 'balance') return `${JSON_INSTRUCTION}
+Genera una ecuación SIMPLE para balancear (coeficientes máximo 3). Devuelve este JSON:
+{"type":"balance","unbalanced":"H2 + O2 → H2O","reactants":["H2","O2"],"products":["H2O"],"solution":{"H2":2,"O2":1,"H2O":2},"explanation":"Primero cuenta H: hay 2 a la izquierda y 2 a la derecha con coeficiente 2. Luego O: hay 2 a la izquierda y 2 a la derecha."}`;
+
+  if (levelType === 'redox') return `${JSON_INSTRUCTION}
+Genera ejercicio básico de redox para 8vo grado. Devuelve este JSON:
+{"type":"redox","title":"Oxidación y Reducción","explanation":"En redox, un átomo pierde electrones (se oxida) y otro los gana (se reduce). El que pierde electrones se oxida. El que gana electrones se reduce. En Zn + CuSO4 → ZnSO4 + Cu, el zinc pierde electrones y el cobre los gana.","reaction":"Zn + CuSO4 → ZnSO4 + Cu","question":"¿Cuál elemento se OXIDA (pierde electrones) en esta reacción?","options":["Zinc (Zn)","Cobre (Cu)","Sulfato (SO4)","Oxígeno (O)"],"correctIndex":0,"answerExplanation":"El Zinc se oxida porque pasa de ser Zn neutral a Zn2+ en ZnSO4, perdiendo 2 electrones."}`;
+
+  return `${JSON_INSTRUCTION}{"type":"balance","unbalanced":"Fe + O2 → Fe2O3","reactants":["Fe","O2"],"products":["Fe2O3"],"solution":{"Fe":4,"O2":3,"Fe2O3":2},"explanation":"Balancea Fe primero: necesitas 4 átomos. Luego O: 6 átomos en cada lado."}`;
+}
+
+function buildCombatPrompt(lvlName) {
+  return `${JSON_INSTRUCTION}
+Genera un combate RPG educativo de química. Devuelve este JSON:
+{"monsterName":"El Demonio del Azufre","monsterEmoji":"👹","monsterHp":${state.forgePerfect?80:140},"monsterDescription":"Un ser de fuego y gases tóxicos","question":"¿Cuál es el símbolo químico del agua?","options":["H2O","CO2","NaCl","O2"],"correctIndex":0,"attackNames":["Lanza Ácido","Rayo de Luz","Escudo Químico","Golpe Elemental"],"damageCorrect":${state.forgePerfect?50:20},"damageMiss":5}`;
+}
+
+function buildMaestroPrompt(lvl, ch) {
+  return `${JSON_INSTRUCTION}
+Eres el Maestro Herrero, un sabio que enseña química a estudiantes de 13 años. 
+El estudiante falló en "${lvl.name}" varias veces.
+Devuelve este JSON con explicación personalizada:
+{"scoldingMessage":"No te preocupes, ¡hasta el mejor herrero quema el metal la primera vez! Vamos a repasar juntos para que lo domines.","coreExplanation":"Recuerda: en una ecuación química, el número delante de la fórmula se llama coeficiente y multiplica TODA la molécula. El número pequeño abajo es el subíndice y multiplica solo ese elemento. Para balancear, contamos átomos de cada lado y ajustamos los coeficientes hasta que coincidan.","keyRule":"Los átomos no se crean ni se destruyen: lo que entra debe ser igual a lo que sale.","practiceQuestion":"En la ecuación 2H2O, ¿cuántos átomos de oxígeno hay en total?","practiceOptions":["1","2","3","4"],"practiceCorrectIndex":1,"practiceExplanation":"El coeficiente 2 multiplica toda la molécula H2O. Cada molécula tiene 1 oxígeno, entonces 2×1 = 2 átomos de oxígeno en total."}`;
+}
+
+// ══════════════ MAPA ══════════════
 function renderMap() {
-  document.getElementById('map-xp').textContent = state.xp;
+  document.getElementById('map-xp').textContent      = state.xp;
   document.getElementById('map-weapons').textContent = state.weapons;
-  document.getElementById('map-streak').textContent = state.streak;
+  document.getElementById('map-streak').textContent  = state.streak;
   const list = document.getElementById('levels-list');
   list.innerHTML = '';
   LEVELS.forEach((lvl, i) => {
-    const unlocked = i===0 || state.completedLevels.includes(i-1);
+    const unlocked  = i === 0 || state.completedLevels.includes(i-1);
     const completed = state.completedLevels.includes(i);
-    const isActive = unlocked && !completed;
+    const isActive  = unlocked && !completed;
     const card = document.createElement('div');
     card.className = 'level-card' + (completed?' completed':(isActive?' active-level':' locked'));
     card.innerHTML = `
-      <div class="level-icon" style="background:${lvl.color}22; border:1px solid ${lvl.color}44;">${lvl.icon}</div>
+      <div class="level-icon" style="background:${lvl.color}22;border:1px solid ${lvl.color}44;">${lvl.icon}</div>
       <div class="level-info">
         <div class="title">Nivel ${lvl.id}: ${lvl.name}</div>
         <div class="desc">${lvl.desc}</div>
-        <div style="margin-top:4px;"><span class="badge badge-amber">+${lvl.xpReward} XP</span></div>
+        <div style="margin-top:4px;"><span class="badge-amber">+${lvl.xpReward} XP</span></div>
       </div>
       <div class="level-badge">${completed?'✅':(isActive?'▶':'🔒')}</div>`;
     if (unlocked) card.onclick = () => showForge(i);
@@ -311,7 +390,7 @@ function renderMap() {
   });
 }
 
-// ── FORGE ──
+// ══════════════ FORGE ══════════════
 function renderForgeAttempts() {
   const d = document.getElementById('forge-attempts-display');
   let html = '';
@@ -321,132 +400,85 @@ function renderForgeAttempts() {
 
 async function loadForgeChallenge(levelId) {
   const fc = document.getElementById('forge-content');
-  fc.innerHTML = '<div class="loading-box"><div class="spinner"></div><div style="margin-top:12px; font-size:14px;">El Maestro Herrero prepara tu reto...</div></div>';
+  fc.innerHTML = '<div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;font-size:14px;">El Maestro Herrero prepara tu reto...</div></div>';
   try {
-    const lvl = LEVELS[levelId];
-    let prompt = '';
-    if (lvl.type === 'reading') {
-      prompt = `Eres maestro de química para 8vo grado. Genera un minijuego sobre fórmulas químicas.
-Devuelve SOLO JSON (sin markdown):
-{
-  "type": "reading",
-  "title": "título del tema",
-  "explanation": "explicación de 3-4 oraciones muy sencillas sobre elementos, subíndices y coeficientes con ejemplos reales",
-  "question": "pregunta de contar átomos, ej: ¿Cuántos átomos de H hay en 3H2O?",
-  "formula": "la fórmula usada, ej: 3H2O",
-  "answer": 6,
-  "hint": "pista muy corta"
-}`;
-    } else if (lvl.type === 'classify') {
-      prompt = `Eres maestro de química para 8vo grado. Genera una ecuación para clasificar.
-Devuelve SOLO JSON (sin markdown):
-{
-  "type": "classify",
-  "equation": "ecuación química simple sin balancear",
-  "reactionType": "uno de: Síntesis|Descomposición|Sustitución simple|Doble sustitución|Combustión",
-  "explanation": "por qué es ese tipo en 2 oraciones simples",
-  "options": ["Síntesis","Descomposición","Sustitución simple","Doble sustitución"]
-}`;
-    } else if (lvl.type === 'balance') {
-      prompt = `Eres maestro de química para 8vo grado. Genera ecuación simple para balancear por tanteo (coeficientes máximo 4).
-Devuelve SOLO JSON (sin markdown):
-{
-  "type": "balance",
-  "unbalanced": "ecuación sin balancear, ej: H2 + O2 → H2O",
-  "reactants": ["H2","O2"],
-  "products": ["H2O"],
-  "solution": {"H2":2,"O2":1,"H2O":2},
-  "explanation": "cómo balancearla en 3 pasos simples"
-}`;
-    } else {
-      prompt = `Eres maestro de química para 8vo grado. Genera ejercicio de conceptos básicos de redox.
-Devuelve SOLO JSON (sin markdown):
-{
-  "type": "redox",
-  "title": "título del concepto",
-  "explanation": "oxidación y reducción en 3-4 oraciones muy sencillas para 13 años",
-  "reaction": "ecuación redox simple, ej: Zn + CuSO4 → ZnSO4 + Cu",
-  "question": "pregunta: ¿Cuál elemento se oxida?",
-  "options": ["opción A","opción B","opción C","opción D"],
-  "correctIndex": 0,
-  "answerExplanation": "por qué es correcta"
-}`;
-    }
-    const raw = await callGemini(prompt);
-    state.currentChallenge = parseJSON(raw);
-    renderForgeUI(state.currentChallenge, levelId);
+    const lvl   = LEVELS[levelId];
+    const raw   = await callGemini(buildPrompt(lvl.type));
+    const ch    = parseJSON(raw);
+    state.currentChallenge = ch;
+    renderForgeUI(ch, levelId);
   } catch(e) {
-    fc.innerHTML = `<div class="card glow-red">
-      <div style="color:var(--red); font-weight:bold;">⚠ Error del Gremio</div>
-      <div style="font-size:13px; color:var(--text2); margin-top:8px;">${e.message}</div>
-      <button class="btn btn-amber" style="margin-top:12px;" onclick="loadForgeChallenge(${levelId})">🔄 Reintentar</button>
-      <button class="btn btn-ghost" style="margin-top:4px;" onclick="showSetup()">⚙ Cambiar API Key</button>
-    </div>`;
+    fc.innerHTML = `
+      <div class="card glow-red">
+        <div style="color:var(--red);font-weight:bold;">⚠ Error del Gremio</div>
+        <div style="font-size:13px;color:var(--text2);margin-top:8px;">${e.message}</div>
+        <button class="btn btn-amber" style="margin-top:12px;" onclick="loadForgeChallenge(${levelId})">🔄 Reintentar</button>
+        <button class="btn btn-ghost" style="margin-top:4px;" onclick="showSetup()">⚙ Cambiar API Key</button>
+      </div>`;
   }
 }
 
 function renderForgeUI(ch, levelId) {
   const fc = document.getElementById('forge-content');
-  if (ch.type === 'reading') renderReadingForge(ch, fc);
+  if      (ch.type === 'reading')  renderReadingForge(ch, fc);
   else if (ch.type === 'classify') renderClassifyForge(ch, fc);
-  else if (ch.type === 'balance') renderBalanceForge(ch, fc);
-  else renderRedoxForge(ch, fc);
+  else if (ch.type === 'balance')  renderBalanceForge(ch, fc);
+  else                              renderRedoxForge(ch, fc);
 }
 
-// ── READING ──
+// ── Reading ──
 function renderReadingForge(ch, container) {
   container.innerHTML = `
     <div class="card glow-amber">
-      <div style="font-size:13px; color:var(--amber); font-weight:bold; margin-bottom:6px;">📖 ${ch.title}</div>
-      <div style="font-size:14px; color:var(--text); line-height:1.7;">${ch.explanation}</div>
+      <div style="font-size:13px;color:var(--amber);font-weight:bold;margin-bottom:6px;">📖 ${ch.title||'Conceptos Básicos'}</div>
+      <div style="font-size:14px;color:var(--text);line-height:1.7;">${ch.explanation||''}</div>
     </div>
     <div class="card">
       <div class="section-title">⚗ Reto</div>
-      <div class="eq-display" style="font-size:24px;">${ch.formula}</div>
-      <div style="font-size:15px; color:var(--text); margin:10px 0 14px; line-height:1.5;">${ch.question}</div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;" id="reading-options"></div>
+      <div class="eq-display" style="font-size:26px;letter-spacing:3px;">${ch.formula||''}</div>
+      <div style="font-size:15px;color:var(--text);margin:10px 0 14px;line-height:1.5;">${ch.question||''}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;" id="reading-options"></div>
       <div id="reading-feedback"></div>
     </div>`;
-  const opts = document.getElementById('reading-options');
-  const ans = ch.answer;
-  const pool = [...new Set([ans, ans+1, ans > 1 ? ans-1 : ans+2, ans+3])].sort(()=>Math.random()-0.5).slice(0,4);
+  const ans  = parseInt(ch.answer) || 6;
+  const pool = [...new Set([ans, ans+1, ans>1?ans-1:ans+2, ans+3])].slice(0,4).sort(()=>Math.random()-0.5);
   pool.forEach(a => {
     const b = document.createElement('button');
     b.className = 'btn btn-ghost';
-    b.style.cssText = 'width:auto; padding:12px 20px; font-size:18px; font-weight:bold; flex:1;';
+    b.style.cssText = 'width:auto;padding:12px 20px;font-size:18px;font-weight:bold;flex:1;';
     b.textContent = a;
     b.onclick = () => checkReadingAnswer(a, ch);
-    opts.appendChild(b);
+    document.getElementById('reading-options').appendChild(b);
   });
 }
 function checkReadingAnswer(val, ch) {
-  const fb = document.getElementById('reading-feedback');
-  if (val === ch.answer) {
+  const fb  = document.getElementById('reading-feedback');
+  const ans = parseInt(ch.answer);
+  if (val === ans) {
     fb.innerHTML = '<div class="msg msg-success">✅ ¡Correcto! ¡Avanzas al Combate!</div>';
     state.forgePerfect = state.forgeAttempts === 0;
-    document.querySelectorAll('#reading-options .btn').forEach(b => b.disabled = true);
-    setTimeout(() => startCombat(ch, true), 1200);
+    document.querySelectorAll('#reading-options .btn').forEach(b => b.disabled=true);
+    setTimeout(() => startCombat(), 1200);
   } else {
-    state.forgeAttempts++;
-    renderForgeAttempts();
-    fb.innerHTML = `<div class="msg msg-error">❌ Incorrecto. Pista: ${ch.hint}</div>`;
-    if (state.forgeAttempts >= 3) setTimeout(() => triggerMaestroBlock(ch, 0), 800);
+    state.forgeAttempts++; renderForgeAttempts();
+    fb.innerHTML = `<div class="msg msg-error">❌ Incorrecto. Pista: ${ch.hint||'Revisa el coeficiente y el subíndice'}</div>`;
+    if (state.forgeAttempts >= 3) setTimeout(() => triggerMaestroBlock(), 800);
   }
 }
 
-// ── CLASSIFY ──
+// ── Classify ──
 function renderClassifyForge(ch, container) {
+  const opts = Array.isArray(ch.options) ? ch.options : ["Síntesis","Descomposición","Sustitución simple","Combustión"];
   container.innerHTML = `
     <div class="card glow-amber">
       <div class="section-title">⚗ Identifica la Reacción</div>
-      <div class="eq-display">${ch.equation}</div>
-      <div style="font-size:14px; color:var(--text2); text-align:center; margin-top:4px;">¿Qué tipo de reacción es esta?</div>
+      <div class="eq-display">${ch.equation||''}</div>
+      <div style="font-size:14px;color:var(--text2);text-align:center;margin-top:4px;">¿Qué tipo de reacción es esta?</div>
     </div>
     <div class="classify-grid" id="classify-opts"></div>
     <div id="classify-feedback"></div>`;
   const icons = {'Síntesis':'⚗','Descomposición':'💥','Sustitución simple':'🔄','Doble sustitución':'🔀','Combustión':'🔥'};
-  document.getElementById('classify-opts').innerHTML = '';
-  ch.options.forEach(opt => {
+  opts.forEach(opt => {
     const b = document.createElement('button');
     b.className = 'classify-btn';
     b.innerHTML = `${icons[opt]||'🧪'}<br>${opt}`;
@@ -455,24 +487,32 @@ function renderClassifyForge(ch, container) {
   });
 }
 function checkClassify(chosen, ch) {
-  const btns = document.querySelectorAll('.classify-btn');
-  btns.forEach(b => { b.disabled=true; if(b.textContent.includes(ch.reactionType)) b.classList.add('selected-correct'); else if(b.textContent.includes(chosen)&&chosen!==ch.reactionType) b.classList.add('selected-wrong'); });
+  const btns    = document.querySelectorAll('.classify-btn');
+  const correct = ch.reactionType || '';
+  btns.forEach(b => {
+    b.disabled = true;
+    if (b.textContent.includes(correct))                          b.classList.add('selected-correct');
+    else if (b.textContent.includes(chosen) && chosen !== correct) b.classList.add('selected-wrong');
+  });
   const fb = document.getElementById('classify-feedback');
-  if (chosen === ch.reactionType) {
-    fb.innerHTML = `<div class="msg msg-success">✅ ¡Correcto! Es una ${ch.reactionType}. ${ch.explanation}</div>`;
+  if (chosen === correct) {
+    fb.innerHTML = `<div class="msg msg-success">✅ ¡Correcto! Es una ${correct}. ${ch.explanation||''}</div>`;
     state.forgePerfect = state.forgeAttempts === 0;
-    setTimeout(() => startCombat(ch, true), 1500);
+    setTimeout(() => startCombat(), 1500);
   } else {
     state.forgeAttempts++; renderForgeAttempts();
-    fb.innerHTML = `<div class="msg msg-error">❌ Era: ${ch.reactionType}. ${ch.explanation}</div>`;
-    if (state.forgeAttempts >= 3) setTimeout(() => triggerMaestroBlock(ch, 1), 1000);
-    else setTimeout(() => { btns.forEach(b=>{b.disabled=false;b.classList.remove('selected-correct','selected-wrong');}); fb.innerHTML=''; }, 2000);
+    fb.innerHTML = `<div class="msg msg-error">❌ Era: ${correct}. ${ch.explanation||''}</div>`;
+    if (state.forgeAttempts >= 3) setTimeout(() => triggerMaestroBlock(), 1000);
+    else setTimeout(() => { btns.forEach(b=>{b.disabled=false;b.classList.remove('selected-correct','selected-wrong');}); fb.innerHTML=''; }, 2200);
   }
 }
 
-// ── BALANCE ──
+// ── Balance ──
 function renderBalanceForge(ch, container) {
-  const all = [...ch.reactants, ...ch.products];
+  const reactants = Array.isArray(ch.reactants) ? ch.reactants : ['H2','O2'];
+  const products  = Array.isArray(ch.products)  ? ch.products  : ['H2O'];
+  ch.reactants = reactants; ch.products = products;
+  const all = [...reactants, ...products];
   state.coefficients = {};
   all.forEach(c => state.coefficients[c] = 1);
   container.innerHTML = `
@@ -484,30 +524,25 @@ function renderBalanceForge(ch, container) {
     <div id="balance-scale"></div>
     <button class="btn btn-amber" id="check-balance-btn" onclick="checkBalance()">⚔ Verificar Balanceo</button>
     <div id="balance-feedback"></div>`;
-  renderBalanceControls(ch);
-  updateEquationDisplay(ch);
-  updateAtomCount(ch);
-}
-function renderBalanceControls(ch) {
-  const all = [...ch.reactants, ...ch.products];
-  const ctrl = document.getElementById('balance-controls');
-  ctrl.innerHTML = '';
   all.forEach(compound => {
     const row = document.createElement('div');
     row.className = 'balance-row';
-    row.innerHTML = `<div class="balance-compound">${compound}</div><div class="coeff-ctrl"><button class="coeff-btn" onclick="changeCoeff('${compound}',-1)">−</button><div class="coeff-val" id="coeff-${compound}">${state.coefficients[compound]}</div><button class="coeff-btn" onclick="changeCoeff('${compound}',1)">+</button></div>`;
-    ctrl.appendChild(row);
+    row.innerHTML = `<div class="balance-compound">${compound}</div><div class="coeff-ctrl"><button class="coeff-btn" onclick="changeCoeff('${compound}',-1)">−</button><div class="coeff-val" id="coeff-${compound}">1</div><button class="coeff-btn" onclick="changeCoeff('${compound}',1)">+</button></div>`;
+    document.getElementById('balance-controls').appendChild(row);
   });
+  updateEquationDisplay(ch);
+  updateAtomCount(ch);
 }
 function changeCoeff(compound, delta) {
-  state.coefficients[compound] = Math.max(1, Math.min(8, state.coefficients[compound] + delta));
+  state.coefficients[compound] = Math.max(1, Math.min(8, (state.coefficients[compound]||1) + delta));
   document.getElementById('coeff-'+compound).textContent = state.coefficients[compound];
   updateEquationDisplay(state.currentChallenge);
   updateAtomCount(state.currentChallenge);
 }
 function updateEquationDisplay(ch) {
   const fmt = c => (state.coefficients[c]>1?`<span class="coeff">${state.coefficients[c]}</span>`:'')+`<span style="color:var(--amber)">${c}</span>`;
-  document.getElementById('eq-live').innerHTML = ch.reactants.map(fmt).join(' + ') + ' <span class="arrow">→</span> ' + ch.products.map(fmt).join(' + ');
+  const el = document.getElementById('eq-live');
+  if (el) el.innerHTML = ch.reactants.map(fmt).join(' + ') + ' <span class="arrow">→</span> ' + ch.products.map(fmt).join(' + ');
 }
 function countAtoms(compounds) {
   const counts = {};
@@ -521,118 +556,105 @@ function countAtoms(compounds) {
   return counts;
 }
 function updateAtomCount(ch) {
-  const left = countAtoms(ch.reactants), right = countAtoms(ch.products);
-  const allEls = [...new Set([...Object.keys(left), ...Object.keys(right)])];
-  let balanced = true, leftPills='', rightPills='';
+  const left=countAtoms(ch.reactants), right=countAtoms(ch.products);
+  const allEls=[...new Set([...Object.keys(left),...Object.keys(right)])];
+  let balanced=true, leftPills='', rightPills='';
   allEls.forEach(el => {
     const l=left[el]||0, r=right[el]||0, match=l===r;
-    if (!match) balanced=false;
-    const cls=match?'match':'mismatch';
-    leftPills+=`<span class="atom-pill ${cls}">${el}: ${l}</span>`;
-    rightPills+=`<span class="atom-pill ${cls}">${el}: ${r}</span>`;
+    if(!match) balanced=false;
+    leftPills +=`<span class="atom-pill ${match?'match':'mismatch'}">${el}: ${l}</span>`;
+    rightPills+=`<span class="atom-pill ${match?'match':'mismatch'}">${el}: ${r}</span>`;
   });
-  document.getElementById('balance-scale').innerHTML = `
-    <div class="scale-container">
-      <div class="scale-side"><h4>⚗ Reactivos</h4><div class="atom-count">${leftPills}</div></div>
-      <div class="scale-side"><h4>⚗ Productos</h4><div class="atom-count">${rightPills}</div></div>
-    </div>
-    <div class="scale-status ${balanced?'balanced':'unbalanced'}">${balanced?'⚖ ¡BALANCEADA! Lista para forjar 🔥':'⚖ Desbalanceada – sigue ajustando'}</div>`;
+  const sc = document.getElementById('balance-scale');
+  if (sc) sc.innerHTML=`<div class="scale-container"><div class="scale-side"><h4>⚗ Reactivos</h4><div class="atom-count">${leftPills}</div></div><div class="scale-side"><h4>⚗ Productos</h4><div class="atom-count">${rightPills}</div></div></div><div class="scale-status ${balanced?'balanced':'unbalanced'}">${balanced?'⚖ ¡BALANCEADA! 🔥':'⚖ Desbalanceada – ajusta más'}</div>`;
 }
 function checkBalance() {
-  const ch = state.currentChallenge;
-  const correct = [...ch.reactants,...ch.products].every(c => state.coefficients[c]===ch.solution[c]);
-  const fb = document.getElementById('balance-feedback');
-  if (correct) {
-    fb.innerHTML = '<div class="msg msg-success">✅ ¡Ecuación balanceada! ¡El arma está lista!</div>';
-    state.forgePerfect = state.forgeAttempts === 0;
-    document.getElementById('check-balance-btn').disabled = true;
-    setTimeout(() => startCombat(ch, true), 1300);
+  const ch=state.currentChallenge;
+  const sol=ch.solution||{};
+  const all=[...ch.reactants,...ch.products];
+  const correct=all.every(c=>state.coefficients[c]===parseInt(sol[c]||1));
+  const fb=document.getElementById('balance-feedback');
+  if(correct){
+    fb.innerHTML='<div class="msg msg-success">✅ ¡Ecuación balanceada! ¡El arma está lista!</div>';
+    state.forgePerfect=state.forgeAttempts===0;
+    document.getElementById('check-balance-btn').disabled=true;
+    setTimeout(()=>startCombat(),1300);
   } else {
     state.forgeAttempts++; renderForgeAttempts();
-    fb.innerHTML = `<div class="msg msg-error">❌ Aún no está balanceada. Revisa la balanza.</div>`;
-    if (state.forgeAttempts >= 3) setTimeout(() => triggerMaestroBlock(ch, 2), 800);
+    fb.innerHTML=`<div class="msg msg-error">❌ Aún no está balanceada. Revisa la balanza.</div>`;
+    if(state.forgeAttempts>=3) setTimeout(()=>triggerMaestroBlock(),800);
   }
 }
 
-// ── REDOX ──
+// ── Redox ──
 function renderRedoxForge(ch, container) {
+  const opts = Array.isArray(ch.options) ? ch.options : ["Opción A","Opción B","Opción C","Opción D"];
   container.innerHTML = `
     <div class="card glow-purple">
-      <div style="font-size:13px; color:var(--purple); font-weight:bold; margin-bottom:6px;">⚡ ${ch.title}</div>
-      <div style="font-size:14px; color:var(--text); line-height:1.7; margin-bottom:10px;">${ch.explanation}</div>
-      <div class="eq-display">${ch.reaction}</div>
+      <div style="font-size:13px;color:var(--purple);font-weight:bold;margin-bottom:6px;">⚡ ${ch.title||'Redox'}</div>
+      <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:10px;">${ch.explanation||''}</div>
+      <div class="eq-display">${ch.reaction||''}</div>
     </div>
     <div class="card">
-      <div style="font-size:15px; color:var(--text); margin-bottom:12px; line-height:1.5;">${ch.question}</div>
+      <div style="font-size:15px;color:var(--text);margin-bottom:12px;line-height:1.5;">${ch.question||''}</div>
       <div class="classify-grid" id="redox-opts"></div>
       <div id="redox-feedback"></div>
     </div>`;
-  ch.options.forEach((opt, i) => {
-    const b = document.createElement('button');
-    b.className = 'classify-btn'; b.textContent = opt;
-    b.onclick = () => checkRedox(i, ch);
+  opts.forEach((opt,i)=>{
+    const b=document.createElement('button');
+    b.className='classify-btn'; b.textContent=opt;
+    b.onclick=()=>checkRedox(i,ch);
     document.getElementById('redox-opts').appendChild(b);
   });
 }
-function checkRedox(idx, ch) {
-  const btns = document.querySelectorAll('#redox-opts .classify-btn');
-  btns.forEach(b => b.disabled=true);
-  const fb = document.getElementById('redox-feedback');
-  if (idx === ch.correctIndex) {
+function checkRedox(idx,ch){
+  const btns=document.querySelectorAll('#redox-opts .classify-btn');
+  btns.forEach(b=>b.disabled=true);
+  const correct=parseInt(ch.correctIndex)||0;
+  const fb=document.getElementById('redox-feedback');
+  if(idx===correct){
     btns[idx].classList.add('selected-correct');
-    fb.innerHTML = `<div class="msg msg-success">✅ ¡Correcto! ${ch.answerExplanation}</div>`;
-    state.forgePerfect = state.forgeAttempts === 0;
-    setTimeout(() => startCombat(ch, true), 1500);
+    fb.innerHTML=`<div class="msg msg-success">✅ ¡Correcto! ${ch.answerExplanation||''}</div>`;
+    state.forgePerfect=state.forgeAttempts===0;
+    setTimeout(()=>startCombat(),1500);
   } else {
     btns[idx].classList.add('selected-wrong');
-    btns[ch.correctIndex].classList.add('selected-correct');
+    btns[correct].classList.add('selected-correct');
     state.forgeAttempts++; renderForgeAttempts();
-    fb.innerHTML = `<div class="msg msg-error">❌ Incorrecto. ${ch.answerExplanation}</div>`;
-    if (state.forgeAttempts >= 3) setTimeout(() => triggerMaestroBlock(ch, 3), 1000);
-    else setTimeout(() => { btns.forEach(b=>{b.disabled=false;b.classList.remove('selected-correct','selected-wrong');}); fb.innerHTML=''; }, 2200);
+    fb.innerHTML=`<div class="msg msg-error">❌ Incorrecto. ${ch.answerExplanation||''}</div>`;
+    if(state.forgeAttempts>=3) setTimeout(()=>triggerMaestroBlock(),1000);
+    else setTimeout(()=>{ btns.forEach(b=>{b.disabled=false;b.classList.remove('selected-correct','selected-wrong');}); fb.innerHTML=''; },2200);
   }
 }
 
-// ── COMBAT ──
-async function startCombat(chData, success) {
+// ══════════════ COMBAT ══════════════
+async function startCombat() {
   showScreen('combat');
-  const cc = document.getElementById('combat-content');
-  cc.innerHTML = '<div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;">Invocando al monstruo...</div></div>';
+  const cc=document.getElementById('combat-content');
+  cc.innerHTML='<div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;">Invocando al monstruo...</div></div>';
   try {
-    const lvl = LEVELS[state.currentLevel];
-    const prompt = `Eres el sistema de combate de un RPG educativo de química para 8vo grado.
-El estudiante completó un reto de "${lvl.name}". Genera un combate. Devuelve SOLO JSON (sin markdown):
-{
-  "monsterName": "nombre épico del monstruo relacionado con química",
-  "monsterEmoji": "emoji del monstruo",
-  "monsterHp": ${state.forgePerfect ? 80 : 140},
-  "monsterDescription": "descripción en 1 oración",
-  "question": "pregunta de opción múltiple sobre ${lvl.name}",
-  "options": ["opción A","opción B","opción C","opción D"],
-  "correctIndex": 0,
-  "attackNames": ["Ataque 1","Ataque 2","Ataque 3","Ataque 4"],
-  "damageCorrect": ${state.forgePerfect ? 50 : 20},
-  "damageMiss": 5
-}`;
-    const raw = await callGemini(prompt);
-    state.combatData = parseJSON(raw);
-    state.combatData.currentHp = state.combatData.monsterHp;
-    state.combatData.answered = false;
+    const lvl=LEVELS[state.currentLevel];
+    const raw=await callGemini(buildCombatPrompt(lvl.name));
+    state.combatData=parseJSON(raw);
+    state.combatData.currentHp=state.combatData.monsterHp||100;
+    state.combatData.answered=false;
     renderCombatUI(state.combatData);
   } catch(e) {
-    cc.innerHTML = `<div class="card glow-red"><div style="color:var(--red);">⚠ Error: ${e.message}</div><button class="btn btn-amber" style="margin-top:12px;" onclick="startCombat(null,true)">🔄 Reintentar</button></div>`;
+    cc.innerHTML=`<div class="card glow-red"><div style="color:var(--red);">⚠ ${e.message}</div><button class="btn btn-amber" style="margin-top:12px;" onclick="startCombat()">🔄 Reintentar</button></div>`;
   }
 }
-function renderCombatUI(cd) {
-  const pct = Math.max(0, Math.round((cd.currentHp/cd.monsterHp)*100));
-  const wClass = state.forgePerfect ? 'perfect' : 'defective';
-  const wLabel = state.forgePerfect ? '⚔ Arma Perfecta (DAÑO MÁXIMO)' : '🗡 Arma Defectuosa (daño mínimo)';
-  document.getElementById('combat-content').innerHTML = `
+function renderCombatUI(cd){
+  const pct=Math.max(0,Math.round((cd.currentHp/cd.monsterHp)*100));
+  const wClass=state.forgePerfect?'perfect':'defective';
+  const wLabel=state.forgePerfect?'⚔ Arma Perfecta (DAÑO MÁXIMO)':'🗡 Arma Defectuosa (daño mínimo)';
+  const opts=Array.isArray(cd.options)?cd.options:["A","B","C","D"];
+  const atks=Array.isArray(cd.attackNames)?cd.attackNames:["Ataque 1","Ataque 2","Ataque 3","Ataque 4"];
+  document.getElementById('combat-content').innerHTML=`
     <div class="weapon-badge ${wClass}">${wLabel}</div>
     <div class="monster-box">
-      <div class="monster-art">${cd.monsterEmoji}</div>
-      <div class="monster-name">${cd.monsterName}</div>
-      <div style="font-size:12px;color:var(--text2);margin:4px 0;">${cd.monsterDescription}</div>
+      <div class="monster-art">${cd.monsterEmoji||'👾'}</div>
+      <div class="monster-name">${cd.monsterName||'Monstruo'}</div>
+      <div style="font-size:12px;color:var(--text2);margin:4px 0;">${cd.monsterDescription||''}</div>
       <div class="monster-hp-row">
         <span style="font-size:12px;color:var(--red);">HP</span>
         <div class="hp-bar" style="flex:1;"><div class="hp-fill" id="monster-hp-fill" style="width:${pct}%;background:var(--red);"></div></div>
@@ -640,131 +662,121 @@ function renderCombatUI(cd) {
       </div>
     </div>
     <div class="card">
-      <div style="font-size:13px;color:var(--amber);margin-bottom:8px;font-weight:bold;">⚔ Usa tu conocimiento para atacar:</div>
-      <div style="font-size:14px;color:var(--text);margin-bottom:12px;line-height:1.5;">${cd.question}</div>
+      <div style="font-size:13px;color:var(--amber);margin-bottom:8px;font-weight:bold;">⚔ Responde para atacar:</div>
+      <div style="font-size:14px;color:var(--text);margin-bottom:12px;line-height:1.5;">${cd.question||''}</div>
       <div class="attack-grid" id="attack-btns"></div>
     </div>
-    <div class="combat-log" id="combat-log">El ${cd.monsterName} aparece... ¡Responde para atacar!</div>`;
-  cd.options.forEach((opt, i) => {
-    const b = document.createElement('button');
-    b.className = 'attack-btn';
-    b.innerHTML = `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">${cd.attackNames[i]||'Ataque '+(i+1)}</div><div>${opt}</div>`;
-    b.onclick = () => doAttack(i, cd);
+    <div class="combat-log" id="combat-log">El ${cd.monsterName||'monstruo'} aparece... ¡Responde para atacar!</div>`;
+  opts.forEach((opt,i)=>{
+    const b=document.createElement('button');
+    b.className='attack-btn';
+    b.innerHTML=`<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">${atks[i]||'Ataque '+(i+1)}</div><div>${opt}</div>`;
+    b.onclick=()=>doAttack(i,cd);
     document.getElementById('attack-btns').appendChild(b);
   });
 }
-function doAttack(idx, cd) {
-  if (cd.answered) return;
-  cd.answered = true;
-  const btns = document.querySelectorAll('.attack-btn');
-  btns.forEach(b => b.disabled=true);
-  const isCorrect = idx === cd.correctIndex;
+function doAttack(idx,cd){
+  if(cd.answered) return;
+  cd.answered=true;
+  const btns=document.querySelectorAll('.attack-btn');
+  btns.forEach(b=>b.disabled=true);
+  const isCorrect=idx===parseInt(cd.correctIndex||0);
   btns[idx].classList.add(isCorrect?'correct':'wrong');
-  if (!isCorrect) btns[cd.correctIndex].classList.add('correct');
-  const log = document.getElementById('combat-log');
-  if (isCorrect) {
-    cd.currentHp = Math.max(0, cd.currentHp - cd.damageCorrect);
-    log.textContent = `¡IMPACTO! ${cd.monsterName} recibe ${cd.damageCorrect} de daño. ${cd.currentHp<=0?'¡¡DERROTADO!!':'HP: '+cd.currentHp}`;
+  if(!isCorrect) btns[parseInt(cd.correctIndex||0)].classList.add('correct');
+  const log=document.getElementById('combat-log');
+  if(isCorrect){
+    cd.currentHp=Math.max(0,cd.currentHp-(cd.damageCorrect||20));
+    log.textContent=`¡IMPACTO! Daño: ${cd.damageCorrect||20}. HP restante: ${cd.currentHp}${cd.currentHp<=0?' ¡¡DERROTADO!!':''}`;
   } else {
-    cd.currentHp = Math.max(0, cd.currentHp - cd.damageMiss);
-    log.textContent = `⚠ Fallaste. Solo ${cd.damageMiss} de daño. Respuesta: ${cd.options[cd.correctIndex]}`;
+    cd.currentHp=Math.max(0,cd.currentHp-(cd.damageMiss||5));
+    log.textContent=`⚠ Fallaste. Solo ${cd.damageMiss||5} de daño. Correcto era: ${(cd.options||[])[parseInt(cd.correctIndex||0)]}`;
   }
-  const pct = Math.max(0,Math.round((cd.currentHp/cd.monsterHp)*100));
-  document.getElementById('monster-hp-fill').style.width = pct+'%';
-  document.getElementById('monster-hp-text').textContent = cd.currentHp+'/'+cd.monsterHp;
-  setTimeout(() => {
-    if (cd.currentHp <= 0) { endCombat(true); }
-    else if (!isCorrect) { endCombat(false); }
+  const pct=Math.max(0,Math.round((cd.currentHp/(cd.monsterHp||100))*100));
+  document.getElementById('monster-hp-fill').style.width=pct+'%';
+  document.getElementById('monster-hp-text').textContent=cd.currentHp+'/'+(cd.monsterHp||100);
+  setTimeout(()=>{
+    if(cd.currentHp<=0) endCombat(true);
+    else if(!isCorrect) endCombat(false);
     else { cd.answered=false; btns.forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong');}); log.textContent='¡Sigue! HP del monstruo: '+cd.currentHp; }
-  }, 2000);
+  },2000);
 }
-function endCombat(victory) {
-  const levelId = state.currentLevel;
-  const lvl = LEVELS[levelId];
-  const cc = document.getElementById('combat-content');
-  if (victory) {
-    state.xp += lvl.xpReward; state.weapons++; state.streak++;
-    if (!state.completedLevels.includes(levelId)) state.completedLevels.push(levelId);
+function endCombat(victory){
+  const levelId=state.currentLevel;
+  const lvl=LEVELS[levelId];
+  const cc=document.getElementById('combat-content');
+  if(victory){
+    state.xp+=lvl.xpReward; state.weapons++; state.streak++;
+    if(!state.completedLevels.includes(levelId)) state.completedLevels.push(levelId);
     saveState();
-    cc.innerHTML = `<div class="card glow-green" style="text-align:center;padding:24px;"><div style="font-size:48px;margin-bottom:12px;">🏆</div><div style="font-size:22px;font-weight:bold;color:var(--gold);margin-bottom:8px;">¡VICTORIA!</div><div style="font-size:15px;color:var(--text2);margin-bottom:16px;">Nivel "${lvl.name}" completado</div><div class="stat-row"><div class="stat-box"><div class="val">+${lvl.xpReward}</div><div class="lbl">XP ganada</div></div><div class="stat-box"><div class="val">+1</div><div class="lbl">Arma forjada</div></div></div><button class="btn btn-amber" style="margin-top:14px;" onclick="showMap()">🗺 Volver al Mapa</button></div>`;
+    cc.innerHTML=`<div class="card glow-green" style="text-align:center;padding:24px;"><div style="font-size:48px;margin-bottom:12px;">🏆</div><div style="font-size:22px;font-weight:bold;color:var(--gold);margin-bottom:8px;">¡VICTORIA!</div><div style="font-size:15px;color:var(--text2);margin-bottom:16px;">Nivel "${lvl.name}" completado</div><div class="stat-row"><div class="stat-box"><div class="val">+${lvl.xpReward}</div><div class="lbl">XP ganada</div></div><div class="stat-box"><div class="val">+1</div><div class="lbl">Arma forjada</div></div></div><button class="btn btn-amber" style="margin-top:14px;" onclick="showMap()">🗺 Volver al Mapa</button></div>`;
   } else {
     state.streak=0; saveState();
-    cc.innerHTML = `<div class="card glow-red" style="text-align:center;padding:24px;"><div style="font-size:48px;margin-bottom:12px;">💀</div><div style="font-size:22px;font-weight:bold;color:var(--red);margin-bottom:8px;">DERROTADO</div><div style="font-size:14px;color:var(--text2);margin-bottom:16px;">Necesitas más práctica.</div><button class="btn btn-amber" onclick="triggerMaestroBlock(state.currentChallenge,${levelId})">🧙 Ver al Maestro Herrero</button><button class="btn btn-ghost" style="margin-top:6px;" onclick="showForge(${levelId})">🔄 Reintentar la Fragua</button></div>`;
+    cc.innerHTML=`<div class="card glow-red" style="text-align:center;padding:24px;"><div style="font-size:48px;margin-bottom:12px;">💀</div><div style="font-size:22px;font-weight:bold;color:var(--red);margin-bottom:8px;">DERROTADO</div><div style="font-size:14px;color:var(--text2);margin-bottom:16px;">Necesitas más práctica.</div><button class="btn btn-amber" onclick="triggerMaestroBlock()">🧙 Ver al Maestro Herrero</button><button class="btn btn-ghost" style="margin-top:6px;" onclick="showForge(${levelId})">🔄 Reintentar la Fragua</button></div>`;
   }
 }
 
-// ── MAESTRO ──
-async function triggerMaestroBlock(challengeData, levelId) {
+// ══════════════ MAESTRO HERRERO ══════════════
+async function triggerMaestroBlock(){
   showScreen('maestro');
-  const mc = document.getElementById('maestro-content');
-  mc.innerHTML = '<div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;">El Maestro Herrero analiza tus errores...</div></div>';
+  const mc=document.getElementById('maestro-content');
+  mc.innerHTML='<div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;">El Maestro Herrero analiza tus errores...</div></div>';
   try {
-    const lvl = LEVELS[levelId];
-    const prompt = `Eres el "Maestro Herrero", sabio anciano que enseña química a estudiantes de 8vo grado.
-El estudiante falló en "${lvl.name}" (${lvl.desc}) tras ${state.forgeAttempts} intentos.
-Reto fallado: ${JSON.stringify(challengeData)}
-Genera explicación personalizada. Devuelve SOLO JSON (sin markdown):
-{
-  "scoldingMessage": "mensaje amigable de 2 oraciones con metáfora de herrería, sin regañar duramente",
-  "coreExplanation": "explicación del concepto en 4-5 oraciones muy sencillas para 13 años, con analogías cotidianas",
-  "keyRule": "la regla más importante en 1 oración",
-  "practiceQuestion": "ejercicio diferente al anterior",
-  "practiceOptions": ["A","B","C","D"],
-  "practiceCorrectIndex": 0,
-  "practiceExplanation": "por qué es correcta"
-}`;
-    const raw = await callGemini(prompt);
-    renderMaestroUI(parseJSON(raw), levelId);
+    const lvl=LEVELS[state.currentLevel||0];
+    const ch=state.currentChallenge||{};
+    const raw=await callGemini(buildMaestroPrompt(lvl,ch));
+    renderMaestroUI(parseJSON(raw), state.currentLevel||0);
   } catch(e) {
-    mc.innerHTML = `<div class="card glow-red"><div style="color:var(--red);">⚠ ${e.message}</div><button class="btn btn-amber" style="margin-top:12px;" onclick="showMap()">← Mapa</button></div>`;
+    mc.innerHTML=`<div class="card glow-red"><div style="color:var(--red);">⚠ ${e.message}</div><button class="btn btn-amber" style="margin-top:12px;" onclick="showMap()">← Mapa</button></div>`;
   }
 }
-function renderMaestroUI(m, levelId) {
-  document.getElementById('maestro-content').innerHTML = `
+function renderMaestroUI(m,levelId){
+  const opts=Array.isArray(m.practiceOptions)?m.practiceOptions:["A","B","C","D"];
+  document.getElementById('maestro-content').innerHTML=`
     <div class="maestro-box">
       <div class="maestro-avatar">🧙‍♂️</div>
       <div class="maestro-name">~ El Maestro Herrero habla ~</div>
-      <div class="maestro-text">${m.scoldingMessage}</div>
+      <div class="maestro-text">${m.scoldingMessage||''}</div>
     </div>
     <div class="card">
       <div class="section-title">📚 Lección Personalizada</div>
-      <div style="font-size:14px;color:var(--text);line-height:1.8;">${m.coreExplanation}</div>
+      <div style="font-size:14px;color:var(--text);line-height:1.8;">${m.coreExplanation||''}</div>
       <div style="background:var(--amber-light);border-left:3px solid var(--amber);padding:10px 12px;border-radius:0 8px 8px 0;margin-top:12px;">
         <div style="font-size:12px;color:var(--amber-dark);font-weight:bold;margin-bottom:4px;">⚔ REGLA DE ORO</div>
-        <div style="font-size:14px;color:#5a3000;">${m.keyRule}</div>
+        <div style="font-size:14px;color:#5a3000;">${m.keyRule||''}</div>
       </div>
     </div>
     <div class="card">
       <div class="section-title">⚗ Ejercicio Obligatorio</div>
-      <div style="font-size:15px;color:var(--text);margin-bottom:12px;line-height:1.5;">${m.practiceQuestion}</div>
+      <div style="font-size:15px;color:var(--text);margin-bottom:12px;line-height:1.5;">${m.practiceQuestion||''}</div>
       <div class="classify-grid" id="practice-opts"></div>
       <div id="practice-feedback"></div>
     </div>`;
-  m.practiceOptions.forEach((opt, i) => {
-    const b = document.createElement('button');
-    b.className = 'classify-btn'; b.textContent = opt;
-    b.onclick = () => checkPractice(i, m, levelId);
+  opts.forEach((opt,i)=>{
+    const b=document.createElement('button');
+    b.className='classify-btn'; b.textContent=opt;
+    b.onclick=()=>checkPractice(i,m,levelId);
     document.getElementById('practice-opts').appendChild(b);
   });
 }
-function checkPractice(idx, m, levelId) {
-  const btns = document.querySelectorAll('#practice-opts .classify-btn');
-  btns.forEach(b => b.disabled=true);
-  const fb = document.getElementById('practice-feedback');
-  if (idx === m.practiceCorrectIndex) {
+function checkPractice(idx,m,levelId){
+  const btns=document.querySelectorAll('#practice-opts .classify-btn');
+  btns.forEach(b=>b.disabled=true);
+  const correct=parseInt(m.practiceCorrectIndex||0);
+  const fb=document.getElementById('practice-feedback');
+  if(idx===correct){
     btns[idx].classList.add('selected-correct');
-    fb.innerHTML = `<div class="msg msg-success">✅ ¡Correcto! ${m.practiceExplanation}</div><button class="btn btn-amber" style="margin-top:12px;" onclick="resetAndRetry(${levelId})">🔥 ¡Listo! Volver a la Fragua</button>`;
+    fb.innerHTML=`<div class="msg msg-success">✅ ¡Correcto! ${m.practiceExplanation||''}</div><button class="btn btn-amber" style="margin-top:12px;" onclick="resetAndRetry(${levelId})">🔥 ¡Listo! Volver a la Fragua</button>`;
   } else {
     btns[idx].classList.add('selected-wrong');
-    btns[m.practiceCorrectIndex].classList.add('selected-correct');
-    fb.innerHTML = `<div class="msg msg-error">❌ Incorrecto. ${m.practiceExplanation}</div><div class="msg msg-info" style="margin-top:6px;">Relee la lección y vuelve a intentar.</div><button class="btn btn-ghost" style="margin-top:12px;" onclick="showMap()">← Volver al Mapa</button>`;
+    btns[correct].classList.add('selected-correct');
+    fb.innerHTML=`<div class="msg msg-error">❌ Incorrecto. ${m.practiceExplanation||''}</div><div class="msg msg-info" style="margin-top:6px;">Relee la lección y vuelve a intentar.</div><button class="btn btn-ghost" style="margin-top:12px;" onclick="showMap()">← Volver al Mapa</button>`;
   }
 }
-function resetAndRetry(levelId) { state.forgeAttempts=0; state.forgePerfect=false; showForge(levelId); }
+function resetAndRetry(levelId){ state.forgeAttempts=0; state.forgePerfect=false; showForge(levelId); }
 
-// ── INIT ──
-(function init() {
-  if (state.apiKey && state.apiKey.length >= 10) showMap();
+// ══════════════ INIT ══════════════
+(function init(){
+  if(state.apiKey && state.apiKey.length>=10) showMap();
   else showScreen('setup');
 })();
 </script>
