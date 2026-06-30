@@ -74,7 +74,7 @@
   .scale-status.balanced   { background: var(--green-light); color: var(--green-dark); }
   .scale-status.unbalanced { background: var(--red-light);   color: var(--red-dark);   }
   .monster-box { background: var(--surface2); border: 1px solid var(--red); border-radius: var(--radius); padding: 16px; text-align: center; margin: 8px 0; }
-  .monster-art  { font-size: 64px; margin: 8px 0; }
+  .monster-art  { font-size: 64px; margin: 8px 0; transition: transform 0.2s; }
   .monster-name { font-size: 18px; font-weight: bold; color: var(--red); }
   .monster-hp-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
   .attack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
@@ -86,6 +86,7 @@
   .combat-log { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 13px; color: var(--text2); min-height: 60px; line-height: 1.6; }
   .weapon-badge { border-radius: 8px; padding: 10px 14px; text-align: center; margin: 6px 0; }
   .weapon-badge.perfect  { border: 2px solid var(--gold);  color: var(--gold); }
+  .weapon-badge.good     { border: 2px solid var(--green); color: var(--green); }
   .weapon-badge.defective { border: 1px solid var(--gray); color: var(--gray); }
   .maestro-box { background: var(--surface); border: 2px solid var(--purple); border-radius: var(--radius); padding: 16px; margin: 8px 0; }
   .maestro-avatar { font-size: 40px; text-align: center; margin-bottom: 8px; }
@@ -111,8 +112,30 @@
   .classify-btn.selected-wrong   { border-color: var(--red);   background: #300808; color: var(--red);   }
   .flame { display: inline-block; animation: flicker 1.5s ease-in-out infinite alternate; }
   @keyframes flicker { from { opacity:1; } to { opacity:0.7; transform:scale(0.97); } }
-  /* debug box */
-  .debug-box { background:#111; border:1px solid #555; border-radius:8px; padding:10px; font-size:11px; color:#aaa; font-family:monospace; white-space:pre-wrap; word-break:break-all; max-height:180px; overflow-y:auto; margin-top:8px; }
+
+  /* ── Progreso de fragua (steps) ── */
+  .forge-progress { display:flex; align-items:center; justify-content:center; gap:6px; margin:10px 0 16px; }
+  .forge-step { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:bold; border:2px solid var(--border); background:var(--surface2); color:var(--text2); transition:all 0.3s; }
+  .forge-step.done { border-color:var(--green); background:var(--green-dark); color:#fff; }
+  .forge-step.fail { border-color:var(--red); background:var(--red-dark); color:#fff; }
+  .forge-step.current { border-color:var(--amber); box-shadow:0 0 10px #ef9f2766; transform:scale(1.15); }
+  .forge-step-line { width:16px; height:2px; background:var(--border); }
+  .forge-step-line.done { background:var(--green); }
+
+  /* ── Animación del arma forjándose ── */
+  .weapon-forge-box { text-align:center; padding:10px 0 4px; position:relative; }
+  .weapon-emoji { font-size:54px; display:inline-block; filter: grayscale(100%) brightness(0.6); transition: filter 0.6s ease, transform 0.4s ease; }
+  .weapon-emoji.stage-1 { filter: grayscale(70%) brightness(0.75); }
+  .weapon-emoji.stage-2 { filter: grayscale(35%) brightness(0.9) saturate(1.3); }
+  .weapon-emoji.stage-3 { filter: grayscale(0%) brightness(1.1) saturate(1.6) drop-shadow(0 0 6px #ffd70088); }
+  .weapon-emoji.stage-4 { filter: grayscale(0%) brightness(1.3) saturate(2) drop-shadow(0 0 16px #ffd700cc); animation: weaponGlow 1.2s ease-in-out infinite alternate; }
+  @keyframes weaponGlow { from { transform:scale(1); } to { transform:scale(1.08); } }
+  .spark { position:absolute; font-size:18px; opacity:0; pointer-events:none; }
+  @keyframes sparkFly { 0%{opacity:1; transform:translate(0,0) scale(1);} 100%{opacity:0; transform:translate(var(--dx),var(--dy)) scale(0.3);} }
+  .spark.fly { animation: sparkFly 0.7s ease-out forwards; }
+  .weapon-power-bar { height:10px; background:var(--surface2); border:1px solid var(--border); border-radius:5px; overflow:hidden; margin-top:8px; }
+  .weapon-power-fill { height:100%; background:linear-gradient(90deg, #8a5a1a, var(--amber), var(--gold)); border-radius:5px; transition: width 0.6s ease; }
+  .weapon-power-label { font-size:11px; color:var(--text2); text-align:center; margin-top:4px; letter-spacing:1px; }
 </style>
 </head>
 <body>
@@ -129,7 +152,7 @@
       <div style="font-size:18px;font-weight:bold;color:var(--amber);text-align:center;margin-bottom:6px;">Ajustes del Gremio</div>
       <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px;text-align:center;">Ingresa tu clave de Gemini para activar al Maestro Herrero.</div>
       <div class="section-title">Llave de la API (Gemini)</div>
-      <input id="apiKeyInput" class="inp" type="password" placeholder="Pega tu clave aquí (AIza... o AQ...)" autocomplete="off">
+      <input id="apiKeyInput" class="inp" type="password" placeholder="Pega tu clave aquí" autocomplete="off">
       <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.6;">
         Obtén tu clave gratis en: <strong style="color:var(--amber);">aistudio.google.com/apikey</strong>
       </div>
@@ -163,8 +186,15 @@
   <div style="display:flex;align-items:center;gap:10px;padding:12px 0 6px;">
     <button class="btn btn-ghost" style="width:auto;padding:8px 12px;" onclick="showMap()">← Mapa</button>
     <div style="flex:1;text-align:center;"><span id="forge-level-name" style="font-size:14px;color:var(--amber);font-weight:bold;"></span></div>
-    <div style="font-size:13px;color:var(--text2);" id="forge-attempts-display"></div>
   </div>
+  <div class="weapon-forge-box" id="weapon-forge-box">
+    <div style="position:relative; display:inline-block;">
+      <span class="weapon-emoji stage-1" id="weapon-emoji">⚔️</span>
+    </div>
+    <div class="weapon-power-bar"><div class="weapon-power-fill" id="weapon-power-fill" style="width:10%;"></div></div>
+    <div class="weapon-power-label" id="weapon-power-label">METAL EN BRUTO</div>
+  </div>
+  <div class="forge-progress" id="forge-progress"></div>
   <div class="scroll-content" id="forge-content">
     <div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;font-size:14px;">Forjando tu reto...</div></div>
   </div>
@@ -196,6 +226,8 @@ const LEVELS = [
   { id:3, name:"Magia Elemental",     icon:"⚡", color:"var(--purple)", desc:"Conceptos básicos de Redox",                     xpReward:350, type:"redox"    }
 ];
 
+const FORGE_ROUNDS = 4; // ejercicios por nivel
+
 // ══════════════ ESTADO ══════════════
 let state = {
   apiKey:         localStorage.getItem('alquiquest_apikey') || '',
@@ -203,9 +235,15 @@ let state = {
   weapons:        parseInt(localStorage.getItem('alquiquest_weapons')   || '0'),
   streak:         parseInt(localStorage.getItem('alquiquest_streak')    || '0'),
   completedLevels:JSON.parse(localStorage.getItem('alquiquest_completed') || '[]'),
-  currentLevel:   null, currentChallenge: null,
-  forgeAttempts:  0,    forgePerfect: false,
-  coefficients:   {},   combatData: null
+  currentLevel:   null,
+  currentChallenge: null,
+  forgeRound:     0,     // ronda actual (0..FORGE_ROUNDS-1)
+  forgeHits:      0,     // aciertos al primer intento conseguidos
+  forgeAttemptsThisRound: 0,
+  forgeRoundResults: [], // 'done' | 'fail' por ronda
+  combatData:     null,
+  combatQuestionsUsed: [], // para no repetir preguntas en combate
+  coefficients:   {}
 };
 
 function saveState() {
@@ -223,12 +261,16 @@ function showScreen(id) {
 }
 function showSetup() { showScreen('setup'); }
 function showMap()   { renderMap(); showScreen('map'); }
+
 function showForge(levelId) {
-  state.currentLevel  = levelId;
-  state.forgeAttempts = 0;
-  state.forgePerfect  = false;
+  state.currentLevel = levelId;
+  state.forgeRound = 0;
+  state.forgeHits = 0;
+  state.forgeAttemptsThisRound = 0;
+  state.forgeRoundResults = new Array(FORGE_ROUNDS).fill('pending');
   document.getElementById('forge-level-name').textContent = '🔥 ' + LEVELS[levelId].name;
-  renderForgeAttempts();
+  renderForgeProgress();
+  updateWeaponVisual();
   showScreen('forge');
   loadForgeChallenge(levelId);
 }
@@ -248,7 +290,7 @@ function saveApiKey() {
   showMap();
 }
 
-// ══════════════ GEMINI — modelos a probar en orden ══════════════
+// ══════════════ GEMINI ══════════════
 const GEMINI_MODELS = [
   'gemini-2.5-flash-preview-05-20',
   'gemini-2.5-flash',
@@ -268,14 +310,13 @@ async function callGemini(prompt) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.5, maxOutputTokens: 1500 }
+            generationConfig: { temperature: 0.9, maxOutputTokens: 1500 }
           })
         }
       );
       const data = await res.json();
       if (!res.ok) {
         lastError = data.error?.message || `HTTP ${res.status}`;
-        // si el modelo no existe, probar el siguiente
         if (res.status === 404 || res.status === 400) continue;
         throw new Error(lastError);
       }
@@ -292,16 +333,8 @@ async function callGemini(prompt) {
 
 // ══════════════ PARSER ROBUSTO ══════════════
 function parseJSON(text) {
-  // 1. limpiar bloques markdown
-  let clean = text
-    .replace(/```json\s*/gi, '')
-    .replace(/```\s*/g, '')
-    .trim();
-
-  // 2. intentar parseo directo
+  let clean = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
   try { return JSON.parse(clean); } catch(_) {}
-
-  // 3. extraer primer objeto JSON del texto (busca { ... } más externo)
   let depth = 0, start = -1, end = -1;
   for (let i = 0; i < clean.length; i++) {
     if (clean[i] === '{') { if (depth === 0) start = i; depth++; }
@@ -310,58 +343,82 @@ function parseJSON(text) {
   if (start >= 0 && end > start) {
     const candidate = clean.slice(start, end + 1);
     try { return JSON.parse(candidate); } catch(_) {}
-
-    // 4. reparar JSON roto: eliminar trailing commas, arreglar comillas
     const repaired = candidate
-      .replace(/,\s*([}\]])/g, '$1')          // trailing commas
-      .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?\s*:/g, '"$2":') // claves sin comillas
-      .replace(/:\s*'([^']*)'/g, ': "$1"');    // valores con comilla simple
+      .replace(/,\s*([}\]])/g, '$1')
+      .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?\s*:/g, '"$2":')
+      .replace(/:\s*'([^']*)'/g, ': "$1"');
     try { return JSON.parse(repaired); } catch(_) {}
   }
-
-  // 5. extraer campos manualmente si todo falla
-  console.warn('JSON complejo, extrayendo manualmente. Texto:', text);
   throw new Error('La IA respondió en un formato inesperado. Toca "Reintentar".');
 }
 
-// ══════════════ PROMPTS con instrucción EXTRA de formato ══════════════
+// ══════════════ PROMPTS ══════════════
 const JSON_INSTRUCTION = `
-INSTRUCCIÓN CRÍTICA: Responde ÚNICAMENTE con el objeto JSON. 
+INSTRUCCIÓN CRÍTICA: Responde ÚNICAMENTE con el objeto JSON.
 Sin texto antes ni después. Sin bloques de código markdown. Sin explicaciones.
 Solo el JSON puro empezando con { y terminando con }.`;
 
-function buildPrompt(levelType) {
-  if (levelType === 'reading') return `${JSON_INSTRUCTION}
-Eres maestro de química para 8vo grado. Devuelve este JSON exacto:
-{"type":"reading","title":"Contando átomos","explanation":"En química, las fórmulas nos dicen qué átomos hay. El subíndice (número pequeño abajo) indica cuántos átomos de ese elemento hay en una molécula. El coeficiente (número grande delante) indica cuántas moléculas hay. Por ejemplo en 3H2O: hay 3 moléculas de agua, cada una con 2 hidrógenos y 1 oxígeno.","question":"¿Cuántos átomos de hidrógeno hay en total en 3H2O?","formula":"3H2O","answer":6,"hint":"Multiplica el coeficiente 3 por el subíndice 2"}`;
-
-  if (levelType === 'classify') return `${JSON_INSTRUCTION}
-Genera una reacción química simple para clasificar. Devuelve este JSON:
-{"type":"classify","equation":"2H2 + O2 → 2H2O","reactionType":"Síntesis","explanation":"Es síntesis porque dos sustancias se unen para formar una sola. Dos elementos se combinan y forman agua.","options":["Síntesis","Descomposición","Sustitución simple","Combustión"]}`;
-
-  if (levelType === 'balance') return `${JSON_INSTRUCTION}
-Genera una ecuación SIMPLE para balancear (coeficientes máximo 3). Devuelve este JSON:
-{"type":"balance","unbalanced":"H2 + O2 → H2O","reactants":["H2","O2"],"products":["H2O"],"solution":{"H2":2,"O2":1,"H2O":2},"explanation":"Primero cuenta H: hay 2 a la izquierda y 2 a la derecha con coeficiente 2. Luego O: hay 2 a la izquierda y 2 a la derecha."}`;
-
-  if (levelType === 'redox') return `${JSON_INSTRUCTION}
-Genera ejercicio básico de redox para 8vo grado. Devuelve este JSON:
-{"type":"redox","title":"Oxidación y Reducción","explanation":"En redox, un átomo pierde electrones (se oxida) y otro los gana (se reduce). El que pierde electrones se oxida. El que gana electrones se reduce. En Zn + CuSO4 → ZnSO4 + Cu, el zinc pierde electrones y el cobre los gana.","reaction":"Zn + CuSO4 → ZnSO4 + Cu","question":"¿Cuál elemento se OXIDA (pierde electrones) en esta reacción?","options":["Zinc (Zn)","Cobre (Cu)","Sulfato (SO4)","Oxígeno (O)"],"correctIndex":0,"answerExplanation":"El Zinc se oxida porque pasa de ser Zn neutral a Zn2+ en ZnSO4, perdiendo 2 electrones."}`;
-
-  return `${JSON_INSTRUCTION}{"type":"balance","unbalanced":"Fe + O2 → Fe2O3","reactants":["Fe","O2"],"products":["Fe2O3"],"solution":{"Fe":4,"O2":3,"Fe2O3":2},"explanation":"Balancea Fe primero: necesitas 4 átomos. Luego O: 6 átomos en cada lado."}`;
+// Variación aleatoria para que la IA no repita siempre lo mismo
+function randomSeed() {
+  const topics = ['agua e hidrógeno','sal y cloro','oxígeno y metales','ácidos simples','combustión de carbono','óxidos metálicos','reacciones de neutralización','gases comunes'];
+  return topics[Math.floor(Math.random()*topics.length)];
 }
 
-function buildCombatPrompt(lvlName) {
+function buildPrompt(levelType, roundNum) {
+  const seed = randomSeed();
+  const variation = `Usa un ejemplo DIFERENTE relacionado con: "${seed}". Esta es la ronda ${roundNum+1} de ${FORGE_ROUNDS}, así que NO repitas ejemplos anteriores.`;
+
+  if (levelType === 'reading') return `${JSON_INSTRUCTION}
+Eres maestro de química para 8vo grado. ${variation}
+Genera un ejercicio de contar átomos en una fórmula con coeficiente y subíndice (números entre 1 y 4).
+Formato JSON:
+{"type":"reading","title":"título corto","explanation":"explicación de 2-3 oraciones muy sencillas sobre subíndices y coeficientes usando el ejemplo de esta fórmula","question":"¿Cuántos átomos de [elemento] hay en total en [formula]?","formula":"ej: 2H2O","answer":4,"hint":"pista corta de cómo multiplicar"}`;
+
+  if (levelType === 'classify') return `${JSON_INSTRUCTION}
+Eres maestro de química para 8vo grado. ${variation}
+Genera una reacción química simple y real para clasificar.
+Formato JSON:
+{"type":"classify","equation":"ecuación real sin balancear","reactionType":"uno de: Síntesis|Descomposición|Sustitución simple|Doble sustitución|Combustión","explanation":"por qué es ese tipo en 2 oraciones simples","options":["Síntesis","Descomposición","Sustitución simple","Combustión"]}`;
+
+  if (levelType === 'balance') return `${JSON_INSTRUCTION}
+Eres maestro de química para 8vo grado. ${variation}
+Genera una ecuación SIMPLE para balancear por tanteo (coeficientes máximo 4, máximo 2 reactivos y 2 productos).
+Formato JSON:
+{"type":"balance","unbalanced":"ecuación sin balancear","reactants":["X","Y"],"products":["Z"],"solution":{"X":2,"Y":1,"Z":2},"explanation":"cómo balancearla en 2-3 pasos simples"}`;
+
+  // redox
   return `${JSON_INSTRUCTION}
-Genera un combate RPG educativo de química. Devuelve este JSON:
-{"monsterName":"El Demonio del Azufre","monsterEmoji":"👹","monsterHp":${state.forgePerfect?80:140},"monsterDescription":"Un ser de fuego y gases tóxicos","question":"¿Cuál es el símbolo químico del agua?","options":["H2O","CO2","NaCl","O2"],"correctIndex":0,"attackNames":["Lanza Ácido","Rayo de Luz","Escudo Químico","Golpe Elemental"],"damageCorrect":${state.forgePerfect?50:20},"damageMiss":5}`;
+Eres maestro de química para 8vo grado. ${variation}
+Genera ejercicio básico de redox (identificar oxidación o reducción).
+Formato JSON:
+{"type":"redox","title":"título corto","explanation":"oxidación/reducción en 2-3 oraciones muy sencillas usando el ejemplo de esta reacción","reaction":"ecuación redox simple","question":"¿Cuál elemento se oxida (o reduce)?","options":["opción A","opción B","opción C","opción D"],"correctIndex":0,"answerExplanation":"por qué es correcta"}`;
+}
+
+function buildCombatPrompt(lvl, usedQuestions) {
+  const seed = randomSeed();
+  const avoid = usedQuestions.length > 0
+    ? `NO uses ninguna de estas preguntas ya usadas: ${usedQuestions.map(q=>'"'+q+'"').join(', ')}. Genera una pregunta COMPLETAMENTE DIFERENTE.`
+    : '';
+  return `${JSON_INSTRUCTION}
+Genera UNA pregunta de combate RPG sobre el tema "${lvl.name}" (${lvl.desc}) para un estudiante de 8vo grado.
+Usa contexto relacionado con: "${seed}". ${avoid}
+Formato JSON:
+{"question":"pregunta corta de opción múltiple sobre el tema, DIFERENTE cada vez","options":["opción A","opción B","opción C","opción D"],"correctIndex":0,"attackName":"nombre corto de ataque de fantasía relacionado a la pregunta"}`;
+}
+
+function buildMonsterIntroPrompt(lvl) {
+  return `${JSON_INSTRUCTION}
+Genera un monstruo de alquimia para un combate RPG educativo de química, tema: "${lvl.name}".
+Formato JSON:
+{"monsterName":"nombre épico relacionado a química","monsterEmoji":"un solo emoji de criatura/monstruo","monsterDescription":"descripción de una oración"}`;
 }
 
 function buildMaestroPrompt(lvl, ch) {
   return `${JSON_INSTRUCTION}
-Eres el Maestro Herrero, un sabio que enseña química a estudiantes de 13 años. 
-El estudiante falló en "${lvl.name}" varias veces.
-Devuelve este JSON con explicación personalizada:
-{"scoldingMessage":"No te preocupes, ¡hasta el mejor herrero quema el metal la primera vez! Vamos a repasar juntos para que lo domines.","coreExplanation":"Recuerda: en una ecuación química, el número delante de la fórmula se llama coeficiente y multiplica TODA la molécula. El número pequeño abajo es el subíndice y multiplica solo ese elemento. Para balancear, contamos átomos de cada lado y ajustamos los coeficientes hasta que coincidan.","keyRule":"Los átomos no se crean ni se destruyen: lo que entra debe ser igual a lo que sale.","practiceQuestion":"En la ecuación 2H2O, ¿cuántos átomos de oxígeno hay en total?","practiceOptions":["1","2","3","4"],"practiceCorrectIndex":1,"practiceExplanation":"El coeficiente 2 multiplica toda la molécula H2O. Cada molécula tiene 1 oxígeno, entonces 2×1 = 2 átomos de oxígeno en total."}`;
+Eres el Maestro Herrero, un sabio que enseña química a estudiantes de 13 años.
+El estudiante falló varias veces en "${lvl.name}" con este reto: ${JSON.stringify(ch).slice(0,500)}
+Devuelve JSON:
+{"scoldingMessage":"mensaje amigable de 2 oraciones con metáfora de herrería, sin regañar duro","coreExplanation":"explicación del concepto en 4-5 oraciones muy sencillas para 13 años con analogías cotidianas","keyRule":"la regla más importante en 1 oración","practiceQuestion":"ejercicio diferente al anterior sobre el mismo tema","practiceOptions":["A","B","C","D"],"practiceCorrectIndex":1,"practiceExplanation":"por qué es correcta"}`;
 }
 
 // ══════════════ MAPA ══════════════
@@ -390,21 +447,69 @@ function renderMap() {
   });
 }
 
-// ══════════════ FORGE ══════════════
-function renderForgeAttempts() {
-  const d = document.getElementById('forge-attempts-display');
+// ══════════════ PROGRESO VISUAL DE FRAGUA ══════════════
+function renderForgeProgress() {
+  const el = document.getElementById('forge-progress');
   let html = '';
-  for (let i=0;i<3;i++) html += `<span class="attempts-dot ${i<state.forgeAttempts?'used':''}"></span>`;
-  d.innerHTML = html;
+  for (let i=0;i<FORGE_ROUNDS;i++) {
+    const result = state.forgeRoundResults[i];
+    let cls = '';
+    if (result === 'done') cls = 'done';
+    else if (result === 'fail') cls = 'fail';
+    else if (i === state.forgeRound) cls = 'current';
+    html += `<div class="forge-step ${cls}">${result==='done'?'✓':(result==='fail'?'✗':(i+1))}</div>`;
+    if (i < FORGE_ROUNDS-1) html += `<div class="forge-step-line ${result==='done'?'done':''}"></div>`;
+  }
+  el.innerHTML = html;
 }
 
+// ══════════════ ANIMACIÓN DEL ARMA ══════════════
+const WEAPON_EMOJIS = { reading:'📜', classify:'🗺️', balance:'⚔️', redox:'⚡' };
+const WEAPON_LABELS = ['METAL EN BRUTO','CALENTANDO EL METAL','FORMA TOMANDO FUERZA','FILO AFILÁNDOSE','¡ARMA LEGENDARIA!'];
+
+function updateWeaponVisual(animateHit) {
+  const lvl = LEVELS[state.currentLevel];
+  const emojiEl = document.getElementById('weapon-emoji');
+  const fillEl  = document.getElementById('weapon-power-fill');
+  const labelEl = document.getElementById('weapon-power-label');
+  emojiEl.textContent = WEAPON_EMOJIS[lvl.type] || '⚔️';
+
+  const pct = Math.round((state.forgeHits / FORGE_ROUNDS) * 100);
+  const stage = state.forgeHits === 0 ? 1 : Math.min(4, 1 + Math.ceil((state.forgeHits/FORGE_ROUNDS)*3));
+  emojiEl.className = 'weapon-emoji stage-' + stage;
+  fillEl.style.width = Math.max(10,pct) + '%';
+  labelEl.textContent = WEAPON_LABELS[Math.min(4,state.forgeHits)] || WEAPON_LABELS[0];
+
+  if (animateHit) {
+    emojiEl.style.transform = 'scale(1.3) rotate(-8deg)';
+    setTimeout(() => { emojiEl.style.transform = ''; }, 250);
+    // chispas
+    const box = document.getElementById('weapon-forge-box');
+    for (let i=0;i<5;i++) {
+      const s = document.createElement('span');
+      s.className = 'spark';
+      s.textContent = ['✨','⭐','💥','🔥'][Math.floor(Math.random()*4)];
+      s.style.left = '50%'; s.style.top = '20px';
+      const dx = (Math.random()-0.5)*120, dy = -(Math.random()*60+30);
+      s.style.setProperty('--dx', dx+'px');
+      s.style.setProperty('--dy', dy+'px');
+      box.appendChild(s);
+      requestAnimationFrame(()=> s.classList.add('fly'));
+      setTimeout(()=> s.remove(), 750);
+    }
+  }
+}
+
+// ══════════════ FORGE (multi-ronda) ══════════════
 async function loadForgeChallenge(levelId) {
   const fc = document.getElementById('forge-content');
   fc.innerHTML = '<div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;font-size:14px;">El Maestro Herrero prepara tu reto...</div></div>';
+  renderForgeProgress();
+  state.forgeAttemptsThisRound = 0;
   try {
-    const lvl   = LEVELS[levelId];
-    const raw   = await callGemini(buildPrompt(lvl.type));
-    const ch    = parseJSON(raw);
+    const lvl = LEVELS[levelId];
+    const raw = await callGemini(buildPrompt(lvl.type, state.forgeRound));
+    const ch  = parseJSON(raw);
     state.currentChallenge = ch;
     renderForgeUI(ch, levelId);
   } catch(e) {
@@ -420,10 +525,33 @@ async function loadForgeChallenge(levelId) {
 
 function renderForgeUI(ch, levelId) {
   const fc = document.getElementById('forge-content');
-  if      (ch.type === 'reading')  renderReadingForge(ch, fc);
-  else if (ch.type === 'classify') renderClassifyForge(ch, fc);
-  else if (ch.type === 'balance')  renderBalanceForge(ch, fc);
-  else                              renderRedoxForge(ch, fc);
+  const header = `<div style="text-align:center;font-size:12px;color:var(--text2);margin-bottom:6px;">Ejercicio ${state.forgeRound+1} de ${FORGE_ROUNDS}</div>`;
+  fc.innerHTML = header + '<div id="forge-exercise"></div>';
+  const target = document.getElementById('forge-exercise');
+  if      (ch.type === 'reading')  renderReadingForge(ch, target);
+  else if (ch.type === 'classify') renderClassifyForge(ch, target);
+  else if (ch.type === 'balance')  renderBalanceForge(ch, target);
+  else                              renderRedoxForge(ch, target);
+}
+
+// ── avanzar de ronda tras un acierto ──
+function advanceForgeRound() {
+  state.forgeRoundResults[state.forgeRound] = 'done';
+  state.forgeHits++;
+  updateWeaponVisual(true);
+  renderForgeProgress();
+  state.forgeRound++;
+  if (state.forgeRound >= FORGE_ROUNDS) {
+    setTimeout(() => startCombat(), 1300);
+  } else {
+    setTimeout(() => loadForgeChallenge(state.currentLevel), 1300);
+  }
+}
+
+function failForgeRound() {
+  state.forgeRoundResults[state.forgeRound] = 'fail';
+  renderForgeProgress();
+  setTimeout(() => triggerMaestroBlock(), 800);
 }
 
 // ── Reading ──
@@ -455,14 +583,13 @@ function checkReadingAnswer(val, ch) {
   const fb  = document.getElementById('reading-feedback');
   const ans = parseInt(ch.answer);
   if (val === ans) {
-    fb.innerHTML = '<div class="msg msg-success">✅ ¡Correcto! ¡Avanzas al Combate!</div>';
-    state.forgePerfect = state.forgeAttempts === 0;
+    fb.innerHTML = '<div class="msg msg-success">✅ ¡Correcto! El metal se templa un poco más...</div>';
     document.querySelectorAll('#reading-options .btn').forEach(b => b.disabled=true);
-    setTimeout(() => startCombat(), 1200);
+    advanceForgeRound();
   } else {
-    state.forgeAttempts++; renderForgeAttempts();
+    state.forgeAttemptsThisRound++;
     fb.innerHTML = `<div class="msg msg-error">❌ Incorrecto. Pista: ${ch.hint||'Revisa el coeficiente y el subíndice'}</div>`;
-    if (state.forgeAttempts >= 3) setTimeout(() => triggerMaestroBlock(), 800);
+    if (state.forgeAttemptsThisRound >= 3) failForgeRound();
   }
 }
 
@@ -497,12 +624,11 @@ function checkClassify(chosen, ch) {
   const fb = document.getElementById('classify-feedback');
   if (chosen === correct) {
     fb.innerHTML = `<div class="msg msg-success">✅ ¡Correcto! Es una ${correct}. ${ch.explanation||''}</div>`;
-    state.forgePerfect = state.forgeAttempts === 0;
-    setTimeout(() => startCombat(), 1500);
+    advanceForgeRound();
   } else {
-    state.forgeAttempts++; renderForgeAttempts();
+    state.forgeAttemptsThisRound++;
     fb.innerHTML = `<div class="msg msg-error">❌ Era: ${correct}. ${ch.explanation||''}</div>`;
-    if (state.forgeAttempts >= 3) setTimeout(() => triggerMaestroBlock(), 1000);
+    if (state.forgeAttemptsThisRound >= 3) failForgeRound();
     else setTimeout(() => { btns.forEach(b=>{b.disabled=false;b.classList.remove('selected-correct','selected-wrong');}); fb.innerHTML=''; }, 2200);
   }
 }
@@ -575,14 +701,13 @@ function checkBalance() {
   const correct=all.every(c=>state.coefficients[c]===parseInt(sol[c]||1));
   const fb=document.getElementById('balance-feedback');
   if(correct){
-    fb.innerHTML='<div class="msg msg-success">✅ ¡Ecuación balanceada! ¡El arma está lista!</div>';
-    state.forgePerfect=state.forgeAttempts===0;
+    fb.innerHTML='<div class="msg msg-success">✅ ¡Ecuación balanceada! El metal se templa más...</div>';
     document.getElementById('check-balance-btn').disabled=true;
-    setTimeout(()=>startCombat(),1300);
+    advanceForgeRound();
   } else {
-    state.forgeAttempts++; renderForgeAttempts();
+    state.forgeAttemptsThisRound++;
     fb.innerHTML=`<div class="msg msg-error">❌ Aún no está balanceada. Revisa la balanza.</div>`;
-    if(state.forgeAttempts>=3) setTimeout(()=>triggerMaestroBlock(),800);
+    if(state.forgeAttemptsThisRound>=3) failForgeRound();
   }
 }
 
@@ -615,46 +740,61 @@ function checkRedox(idx,ch){
   if(idx===correct){
     btns[idx].classList.add('selected-correct');
     fb.innerHTML=`<div class="msg msg-success">✅ ¡Correcto! ${ch.answerExplanation||''}</div>`;
-    state.forgePerfect=state.forgeAttempts===0;
-    setTimeout(()=>startCombat(),1500);
+    advanceForgeRound();
   } else {
     btns[idx].classList.add('selected-wrong');
     btns[correct].classList.add('selected-correct');
-    state.forgeAttempts++; renderForgeAttempts();
+    state.forgeAttemptsThisRound++;
     fb.innerHTML=`<div class="msg msg-error">❌ Incorrecto. ${ch.answerExplanation||''}</div>`;
-    if(state.forgeAttempts>=3) setTimeout(()=>triggerMaestroBlock(),1000);
+    if(state.forgeAttemptsThisRound>=3) failForgeRound();
     else setTimeout(()=>{ btns.forEach(b=>{b.disabled=false;b.classList.remove('selected-correct','selected-wrong');}); fb.innerHTML=''; },2200);
   }
 }
 
-// ══════════════ COMBAT ══════════════
+// ══════════════ COMBAT (multi-pregunta, sin repetir) ══════════════
 async function startCombat() {
   showScreen('combat');
+  state.combatQuestionsUsed = [];
   const cc=document.getElementById('combat-content');
   cc.innerHTML='<div class="loading-box"><div class="spinner"></div><div style="margin-top:12px;">Invocando al monstruo...</div></div>';
   try {
     const lvl=LEVELS[state.currentLevel];
-    const raw=await callGemini(buildCombatPrompt(lvl.name));
-    state.combatData=parseJSON(raw);
-    state.combatData.currentHp=state.combatData.monsterHp||100;
-    state.combatData.answered=false;
-    renderCombatUI(state.combatData);
+    const raw=await callGemini(buildMonsterIntroPrompt(lvl));
+    const monster=parseJSON(raw);
+
+    // Daño y vida escalan según cuántos ejercicios de la fragua se acertaron al primer intento
+    const hitRatio = state.forgeHits / FORGE_ROUNDS; // 0..1
+    const weaponQuality = hitRatio >= 1 ? 'perfect' : (hitRatio >= 0.5 ? 'good' : 'defective');
+    const monsterHp = weaponQuality === 'perfect' ? 90 : (weaponQuality === 'good' ? 130 : 170);
+    const damageCorrect = weaponQuality === 'perfect' ? 45 : (weaponQuality === 'good' ? 28 : 14);
+
+    state.combatData = {
+      monsterName: monster.monsterName || 'Monstruo de Alquimia',
+      monsterEmoji: monster.monsterEmoji || '👾',
+      monsterDescription: monster.monsterDescription || '',
+      monsterHp, currentHp: monsterHp,
+      damageCorrect, damageMiss: 6,
+      weaponQuality,
+      answered: false,
+      question:null, options:null, correctIndex:0, attackName:''
+    };
+    renderCombatShell(state.combatData);
+    await loadNextCombatQuestion();
   } catch(e) {
     cc.innerHTML=`<div class="card glow-red"><div style="color:var(--red);">⚠ ${e.message}</div><button class="btn btn-amber" style="margin-top:12px;" onclick="startCombat()">🔄 Reintentar</button></div>`;
   }
 }
-function renderCombatUI(cd){
+
+function renderCombatShell(cd) {
   const pct=Math.max(0,Math.round((cd.currentHp/cd.monsterHp)*100));
-  const wClass=state.forgePerfect?'perfect':'defective';
-  const wLabel=state.forgePerfect?'⚔ Arma Perfecta (DAÑO MÁXIMO)':'🗡 Arma Defectuosa (daño mínimo)';
-  const opts=Array.isArray(cd.options)?cd.options:["A","B","C","D"];
-  const atks=Array.isArray(cd.attackNames)?cd.attackNames:["Ataque 1","Ataque 2","Ataque 3","Ataque 4"];
+  const wClass = cd.weaponQuality==='perfect'?'perfect':(cd.weaponQuality==='good'?'good':'defective');
+  const wLabel = cd.weaponQuality==='perfect' ? '⚔ Arma Perfecta (DAÑO MÁXIMO)' : (cd.weaponQuality==='good' ? '🗡 Arma Buena (daño sólido)' : '🔨 Arma Defectuosa (daño mínimo)');
   document.getElementById('combat-content').innerHTML=`
     <div class="weapon-badge ${wClass}">${wLabel}</div>
     <div class="monster-box">
-      <div class="monster-art">${cd.monsterEmoji||'👾'}</div>
-      <div class="monster-name">${cd.monsterName||'Monstruo'}</div>
-      <div style="font-size:12px;color:var(--text2);margin:4px 0;">${cd.monsterDescription||''}</div>
+      <div class="monster-art" id="monster-art">${cd.monsterEmoji}</div>
+      <div class="monster-name">${cd.monsterName}</div>
+      <div style="font-size:12px;color:var(--text2);margin:4px 0;">${cd.monsterDescription}</div>
       <div class="monster-hp-row">
         <span style="font-size:12px;color:var(--red);">HP</span>
         <div class="hp-bar" style="flex:1;"><div class="hp-fill" id="monster-hp-fill" style="width:${pct}%;background:var(--red);"></div></div>
@@ -663,43 +803,74 @@ function renderCombatUI(cd){
     </div>
     <div class="card">
       <div style="font-size:13px;color:var(--amber);margin-bottom:8px;font-weight:bold;">⚔ Responde para atacar:</div>
-      <div style="font-size:14px;color:var(--text);margin-bottom:12px;line-height:1.5;">${cd.question||''}</div>
-      <div class="attack-grid" id="attack-btns"></div>
+      <div id="combat-question-box"><div class="loading-box"><div class="spinner"></div></div></div>
     </div>
-    <div class="combat-log" id="combat-log">El ${cd.monsterName||'monstruo'} aparece... ¡Responde para atacar!</div>`;
-  opts.forEach((opt,i)=>{
+    <div class="combat-log" id="combat-log">El ${cd.monsterName} aparece... ¡Responde para atacar!</div>`;
+}
+
+async function loadNextCombatQuestion() {
+  const cd = state.combatData;
+  const qbox = document.getElementById('combat-question-box');
+  qbox.innerHTML = '<div class="loading-box"><div class="spinner"></div></div>';
+  try {
+    const lvl = LEVELS[state.currentLevel];
+    const raw = await callGemini(buildCombatPrompt(lvl, state.combatQuestionsUsed));
+    const q = parseJSON(raw);
+    cd.question = q.question || '¿Cuál es la respuesta correcta?';
+    cd.options = Array.isArray(q.options) ? q.options : ['A','B','C','D'];
+    cd.correctIndex = parseInt(q.correctIndex)||0;
+    cd.attackName = q.attackName || 'Ataque Elemental';
+    state.combatQuestionsUsed.push(cd.question);
+    cd.answered = false;
+    renderCombatQuestion(cd);
+  } catch(e) {
+    qbox.innerHTML = `<div class="msg msg-error">⚠ Error cargando pregunta. <button class="btn btn-amber" style="margin-top:8px;" onclick="loadNextCombatQuestion()">Reintentar</button></div>`;
+  }
+}
+
+function renderCombatQuestion(cd) {
+  const qbox = document.getElementById('combat-question-box');
+  qbox.innerHTML = `
+    <div style="font-size:11px;color:var(--purple);font-weight:bold;margin-bottom:4px;">✦ ${cd.attackName}</div>
+    <div style="font-size:14px;color:var(--text);margin-bottom:12px;line-height:1.5;">${cd.question}</div>
+    <div class="attack-grid" id="attack-btns"></div>`;
+  cd.options.forEach((opt,i)=>{
     const b=document.createElement('button');
     b.className='attack-btn';
-    b.innerHTML=`<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">${atks[i]||'Ataque '+(i+1)}</div><div>${opt}</div>`;
+    b.textContent = opt;
     b.onclick=()=>doAttack(i,cd);
     document.getElementById('attack-btns').appendChild(b);
   });
 }
+
 function doAttack(idx,cd){
   if(cd.answered) return;
   cd.answered=true;
   const btns=document.querySelectorAll('.attack-btn');
   btns.forEach(b=>b.disabled=true);
-  const isCorrect=idx===parseInt(cd.correctIndex||0);
+  const isCorrect=idx===cd.correctIndex;
   btns[idx].classList.add(isCorrect?'correct':'wrong');
-  if(!isCorrect) btns[parseInt(cd.correctIndex||0)].classList.add('correct');
+  if(!isCorrect) btns[cd.correctIndex].classList.add('correct');
   const log=document.getElementById('combat-log');
+  const art=document.getElementById('monster-art');
   if(isCorrect){
-    cd.currentHp=Math.max(0,cd.currentHp-(cd.damageCorrect||20));
-    log.textContent=`¡IMPACTO! Daño: ${cd.damageCorrect||20}. HP restante: ${cd.currentHp}${cd.currentHp<=0?' ¡¡DERROTADO!!':''}`;
+    cd.currentHp=Math.max(0,cd.currentHp-cd.damageCorrect);
+    log.textContent=`¡IMPACTO! ${cd.attackName} hace ${cd.damageCorrect} de daño. HP restante: ${cd.currentHp}${cd.currentHp<=0?' ¡¡DERROTADO!!':''}`;
+    art.style.transform='scale(0.85)'; setTimeout(()=>{art.style.transform='';},300);
   } else {
-    cd.currentHp=Math.max(0,cd.currentHp-(cd.damageMiss||5));
-    log.textContent=`⚠ Fallaste. Solo ${cd.damageMiss||5} de daño. Correcto era: ${(cd.options||[])[parseInt(cd.correctIndex||0)]}`;
+    cd.currentHp=Math.max(0,cd.currentHp-cd.damageMiss);
+    log.textContent=`⚠ Fallaste. Solo ${cd.damageMiss} de daño. La respuesta correcta era: ${cd.options[cd.correctIndex]}`;
   }
-  const pct=Math.max(0,Math.round((cd.currentHp/(cd.monsterHp||100))*100));
+  const pct=Math.max(0,Math.round((cd.currentHp/cd.monsterHp)*100));
   document.getElementById('monster-hp-fill').style.width=pct+'%';
-  document.getElementById('monster-hp-text').textContent=cd.currentHp+'/'+(cd.monsterHp||100);
+  document.getElementById('monster-hp-text').textContent=cd.currentHp+'/'+cd.monsterHp;
   setTimeout(()=>{
     if(cd.currentHp<=0) endCombat(true);
     else if(!isCorrect) endCombat(false);
-    else { cd.answered=false; btns.forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong');}); log.textContent='¡Sigue! HP del monstruo: '+cd.currentHp; }
-  },2000);
+    else { log.textContent='¡Sigue atacando! HP del monstruo: '+cd.currentHp; loadNextCombatQuestion(); }
+  },1800);
 }
+
 function endCombat(victory){
   const levelId=state.currentLevel;
   const lvl=LEVELS[levelId];
@@ -772,7 +943,7 @@ function checkPractice(idx,m,levelId){
     fb.innerHTML=`<div class="msg msg-error">❌ Incorrecto. ${m.practiceExplanation||''}</div><div class="msg msg-info" style="margin-top:6px;">Relee la lección y vuelve a intentar.</div><button class="btn btn-ghost" style="margin-top:12px;" onclick="showMap()">← Volver al Mapa</button>`;
   }
 }
-function resetAndRetry(levelId){ state.forgeAttempts=0; state.forgePerfect=false; showForge(levelId); }
+function resetAndRetry(levelId){ showForge(levelId); }
 
 // ══════════════ INIT ══════════════
 (function init(){
